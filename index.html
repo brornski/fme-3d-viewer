@@ -116,6 +116,29 @@
             color: var(--titanium);
         }
 
+        /* Cinematic intro animations */
+        .intro-hidden {
+            opacity: 0 !important;
+            transform: translateY(40px) !important;
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .intro-hidden.intro-from-top {
+            transform: translateY(-30px) !important;
+        }
+
+        .intro-hidden.intro-scale {
+            transform: scale(0.95) translateY(20px) !important;
+            transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        .intro-visible {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
+        }
+
         /* Navigation */
         nav {
             position: fixed;
@@ -195,19 +218,26 @@
             position: fixed;
             bottom: 40px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(20px);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
             z-index: 100;
+            opacity: 0;
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-indicator.intro-ready {
             opacity: 1;
-            transition: opacity 0.5s ease;
+            transform: translateX(-50%) translateY(0);
         }
 
         .scroll-indicator.hidden {
-            opacity: 0;
+            opacity: 0 !important;
             pointer-events: none;
+            transform: translateX(-50%) translateY(20px) !important;
         }
 
         .scroll-indicator span {
@@ -241,11 +271,14 @@
             z-index: 1;
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.8s ease-out;
+            transform: scale(0.92);
+            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         #canvas-container.loaded {
             opacity: 1;
+            transform: scale(1);
         }
 
         /* Scroll container - creates scroll height */
@@ -882,7 +915,7 @@
         </div>
     </div>
 
-    <nav>
+    <nav class="intro-hidden intro-from-top" id="mainNav">
         <a href="#" class="nav-logo">
             <div class="nav-logo-box"><span>teamdental</span></div>
         </a>
@@ -908,7 +941,7 @@
 
         <!-- Section 1: Hero - Left side -->
         <section class="scroll-section section-hero" data-rotation="0">
-            <div class="content-panel from-left" data-animate>
+            <div class="content-panel from-left intro-hidden" id="heroPanel" data-animate>
                 <p class="hero-eyebrow">Introducing</p>
                 <h1>Facegenics<br>Midface <em>Expander</em></h1>
                 <p>Revolutionary non-surgical palate expansion for adults. Experience the future of facial aesthetics.</p>
@@ -1298,14 +1331,34 @@
                 modelGroup.rotation.x = -Math.PI * 0.5; // Stand upright
                 document.getElementById('loading').classList.add('hidden');
 
-                // Fade in the 3D model
+                // Cinematic intro sequence - choreographed timing
+                const navEl = document.getElementById('mainNav');
+                const heroEl = document.getElementById('heroPanel');
+
+                // 1. 3D model scales and fades in (0.3s delay)
                 setTimeout(() => {
                     container.classList.add('loaded');
-                }, 100);
+                }, 300);
+
+                // 2. Nav drops down from top (0.8s delay)
+                setTimeout(() => {
+                    navEl.classList.remove('intro-hidden', 'intro-from-top');
+                    navEl.classList.add('intro-visible');
+                }, 800);
+
+                // 3. Hero content rises into place (1.2s delay)
+                setTimeout(() => {
+                    heroEl.classList.remove('intro-hidden');
+                    heroEl.classList.add('intro-visible', 'visible');
+                }, 1200);
+
+                // 4. Scroll indicator appears last (2.0s delay)
+                setTimeout(() => {
+                    scrollIndicator.classList.add('intro-ready');
+                }, 2000);
 
                 // Initial checks
                 updateScrollAnimation();
-                checkPanelVisibility();
                 updateCanvasFade();
             },
             (progress) => {
