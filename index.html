@@ -198,42 +198,27 @@
 
         .nav-cta {
             padding: 0.6rem 1.3rem;
-            background: linear-gradient(
-                135deg,
-                rgba(20, 50, 90, 0.5) 0%,
-                rgba(40, 80, 140, 0.35) 50%,
-                rgba(30, 60, 110, 0.45) 100%
-            );
-            border: 1px solid rgba(100, 160, 220, 0.25);
-            border-top-color: rgba(140, 190, 240, 0.3);
-            color: var(--ivory);
+            background: linear-gradient(135deg, var(--team-blue-dark) 0%, var(--team-blue) 100%);
+            border: none;
+            color: white;
             font-family: 'Inter', sans-serif;
             font-size: 0.75rem;
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 10px;
-            box-shadow:
-                0 1px 1px rgba(255, 255, 255, 0.06) inset,
-                0 2px 8px rgba(0, 20, 60, 0.25);
+            transition: none;
+            border-radius: 4px;
+            box-shadow: 0 4px 16px rgba(59, 130, 196, 0.25);
         }
 
         .nav-cta:hover {
-            background: linear-gradient(
-                135deg,
-                rgba(30, 65, 115, 0.65) 0%,
-                rgba(50, 95, 160, 0.45) 50%,
-                rgba(40, 75, 130, 0.55) 100%
-            );
-            border-color: rgba(120, 180, 240, 0.4);
+            background: linear-gradient(135deg, #4A9FD4 0%, #5BB5E8 100%);
             transform: translateY(-1px);
             box-shadow:
-                0 1px 1px rgba(255, 255, 255, 0.08) inset,
-                0 4px 16px rgba(0, 30, 80, 0.35);
+                0 0 20px rgba(74, 159, 212, 0.5),
+                0 0 50px rgba(74, 159, 212, 0.25),
+                0 8px 24px rgba(59, 130, 196, 0.4);
         }
 
         /* Scroll indicator */
