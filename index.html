@@ -982,9 +982,19 @@
             </div>
         </section>
 
-        <!-- Section 2: Benefits - Right side -->
-        <section class="scroll-section" id="benefits" data-rotation="90">
+        <!-- Section 2: Technology - Right side -->
+        <section class="scroll-section" data-rotation="90">
             <div class="content-panel from-right" data-animate>
+                <div class="badge">Now Available</div>
+                <h2>FME 6-8-10<br><em>TAD System</em></h2>
+                <p>Featuring Temporary Anchorage Devices for enhanced precision and predictable results. Our proprietary design delivers controlled expansion with maximum comfort.</p>
+                <p style="color: var(--gold); font-size: 0.85rem;">Protraction system coming soon.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Benefits - Left side -->
+        <section class="scroll-section" id="benefits" data-rotation="180">
+            <div class="content-panel from-left" data-animate>
                 <h2>Transform<br>Your <em>Life</em></h2>
                 <ul class="benefits-list">
                     <li>Wider, Fuller Smile</li>
@@ -993,16 +1003,6 @@
                     <li>Non-Surgical Treatment</li>
                     <li>Custom-Engineered Design</li>
                 </ul>
-            </div>
-        </section>
-
-        <!-- Section 3: Technology - Left side -->
-        <section class="scroll-section" data-rotation="180">
-            <div class="content-panel from-left" data-animate>
-                <div class="badge">Now Available</div>
-                <h2>FME 6-8-10<br><em>TAD System</em></h2>
-                <p>Featuring Temporary Anchorage Devices for enhanced precision and predictable results. Our proprietary design delivers controlled expansion with maximum comfort.</p>
-                <p style="color: var(--gold); font-size: 0.85rem;">Protraction system coming soon.</p>
             </div>
         </section>
 
@@ -1240,7 +1240,7 @@
         let currentRotationY = Math.PI; // Match initial pose
 
         // Position and zoom targets (adjusted for mobile)
-        const initialZoom = isMobile ? 12.0 : 7.0;
+        const initialZoom = isMobile ? 12.0 : 10.0;
         const initialY = isMobile ? 1.2 : 0;
         let targetPositionX = 0;
         let targetPositionY = initialY;
@@ -1268,25 +1268,25 @@
         // Model fades out after Technology section - shrinks and drifts left before Doctors
         const desktopKeyframes = [
             // Hero: model right, front face showing (text is left)
-            { scroll: 0.00, x: 0.5,  y: 0,    zoom: 7.0, rotX: 0, rotY: frontFace,                  rotZ: 0 },
-            { scroll: 0.10, x: 0.6,  y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 0.15, rotZ: 0 },
+            { scroll: 0.00, x: 0.5,  y: 0,    zoom: 10.0, rotX: 0, rotY: frontFace,                  rotZ: 0 },
+            { scroll: 0.10, x: 0.6,  y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 0.15, rotZ: 0 },
             // Transition: spin across to left side
-            { scroll: 0.20, x: 0,    y: 0.08, zoom: 7.0, rotX: 0, rotY: frontFace + Math.PI * 1.0,  rotZ: 0 },
-            // Benefits: model left, front face (text is right)
-            { scroll: 0.30, x: -0.6, y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 2.0,  rotZ: 0 },
-            { scroll: 0.38, x: -0.55,y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 2.15, rotZ: 0 },
+            { scroll: 0.20, x: 0,    y: 0.08, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1.0,  rotZ: 0 },
+            // TAD System: model left, front face (text is right)
+            { scroll: 0.30, x: -0.6, y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.0,  rotZ: 0 },
+            { scroll: 0.38, x: -0.55,y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.15, rotZ: 0 },
             // Transition: spin across to right side
-            { scroll: 0.44, x: 0,    y: 0.08, zoom: 7.0, rotX: 0, rotY: frontFace + Math.PI * 3.0,  rotZ: 0 },
-            // Technology: model right, front face (text is left)
-            { scroll: 0.52, x: 0.6,  y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 4.0,  rotZ: 0 },
-            { scroll: 0.58, x: 0.55, y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 4.15, rotZ: 0 },
+            { scroll: 0.44, x: 0,    y: 0.08, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3.0,  rotZ: 0 },
+            // Benefits: model right, front face (text is left)
+            { scroll: 0.52, x: 0.6,  y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.0,  rotZ: 0 },
+            { scroll: 0.58, x: 0.55, y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.15, rotZ: 0 },
             // Exit: model shrinks and drifts left (fading out via opacity)
-            { scroll: 0.64, x: -0.3, y: 0,    zoom: 9.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,  rotZ: 0 },
-            // From here model is invisible (faded out) - positions don't matter visually
-            { scroll: 0.72, x: -0.4, y: 0,    zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 6.0, rotZ: 0 },
-            { scroll: 0.80, x: -0.4, y: 0,    zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 6.5, rotZ: 0 },
-            { scroll: 0.88, x: 0,    y: 0,    zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 7.0, rotZ: 0 },
-            { scroll: 1.00, x: 0,    y: 0,    zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 8.0, rotZ: 0 },
+            { scroll: 0.64, x: -0.3, y: 0,    zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,  rotZ: 0 },
+            // From here model is invisible (faded out)
+            { scroll: 0.72, x: -0.4, y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.0,  rotZ: 0 },
+            { scroll: 0.80, x: -0.4, y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.5,  rotZ: 0 },
+            { scroll: 0.88, x: 0,    y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 7.0,  rotZ: 0 },
+            { scroll: 1.00, x: 0,    y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 8.0,  rotZ: 0 },
         ];
 
         // Mobile keyframes - FIXED zoom, no size changes, only rotation
