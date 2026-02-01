@@ -1550,8 +1550,8 @@
             const doctorsRect = doctorsSection.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
 
-            // Trigger exit when doctors section enters the bottom of the viewport
-            const triggerPoint = viewportHeight * 1.1;
+            // Trigger exit only when doctors section is about to enter the viewport
+            const triggerPoint = viewportHeight * 0.4;
 
             if (doctorsRect.top < triggerPoint) {
                 container.classList.add('exit');
