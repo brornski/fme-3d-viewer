@@ -281,6 +281,15 @@
         #canvas-container.loaded {
             opacity: 1;
             transform: scale(1);
+            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #canvas-container.loaded.exit {
+            opacity: 0;
+            transform: scale(0.92) translateY(40px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Scroll container - creates scroll height */
@@ -1503,31 +1512,23 @@
         }
 
         // Fade out 3D model before doctors section appears
+        // Uses class toggle so CSS transition handles the animation
+        // Same cubic-bezier + timing as the content panels popping in
         const doctorsSection = document.getElementById('doctors');
         const ctaSection = document.getElementById('consultation');
         function updateCanvasFade() {
-            if (!container.classList.contains('loaded')) return; // Don't interfere with load animation
+            if (!container.classList.contains('loaded')) return;
 
             const doctorsRect = doctorsSection.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
 
-            // Desktop: start fading when doctors section bottom edge enters viewport
-            // Fully gone before doctors content is readable
-            // Mobile: same logic but triggers slightly earlier
-            const fadeStart = isMobile ? viewportHeight * 0.5 : viewportHeight * 1.0;
-            const fadeEnd = isMobile ? viewportHeight * 0.1 : viewportHeight * 0.55;
+            // Trigger exit when doctors section enters the bottom of the viewport
+            const triggerPoint = viewportHeight * 1.1;
 
-            if (doctorsRect.top >= fadeStart) {
-                // Doctors section still below fade zone - full opacity
-                container.style.opacity = '1';
-            } else if (doctorsRect.top <= fadeEnd) {
-                // Doctors section in view - fully hidden
-                container.style.opacity = '0';
+            if (doctorsRect.top < triggerPoint) {
+                container.classList.add('exit');
             } else {
-                // Gradual fade as doctors section approaches
-                const fadeProgress = (fadeStart - doctorsRect.top) / (fadeStart - fadeEnd);
-                const opacity = Math.max(0, Math.min(1, 1 - fadeProgress));
-                container.style.opacity = opacity.toString();
+                container.classList.remove('exit');
             }
         }
 
