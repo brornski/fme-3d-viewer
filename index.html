@@ -601,6 +601,34 @@
             color: var(--gold);
         }
 
+        /* Doctors section - centered */
+        .section-doctors {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .section-doctors .content-panel {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-doctors .content-panel.from-left {
+            transform: translateY(50px);
+        }
+
+        .section-doctors .content-panel.visible {
+            transform: translateY(0);
+        }
+
+        .section-doctors .hero-eyebrow {
+            justify-content: center;
+        }
+
+        .section-doctors .doctors-inline {
+            justify-content: center;
+        }
+
         /* Final CTA section - smooth gradient from black to gray */
         .section-cta {
             background: linear-gradient(to bottom,
@@ -1015,9 +1043,9 @@
             </div>
         </section>
 
-        <!-- Section 4: Doctors - Right side -->
-        <section class="scroll-section" id="doctors" data-rotation="270">
-            <div class="content-panel from-right" data-animate>
+        <!-- Section 4: Doctors - Centered -->
+        <section class="scroll-section section-doctors" id="doctors" data-rotation="270">
+            <div class="content-panel from-left" data-animate>
                 <p class="hero-eyebrow">Your Expert Team</p>
                 <h3>Meet Your Doctors</h3>
                 <p>Our dynamic doctor duo brings an unrivaled combination of specialized knowledge and experience.</p>
