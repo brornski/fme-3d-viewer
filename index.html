@@ -6,14 +6,14 @@
     <title>Facegenics Midface Expander (FME) | Team Dental</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --ivory: #FAF9F6;
             --obsidian: #0D0D0D;
             --titanium: #8A8D90;
-            --gold: #C9A962;
-            --gold-light: #E8D5A3;
+            --gold: #A0CBE8;
+            --gold-light: #C4DFF2;
             --slate: #2A2D32;
             --cream: #F5F3EE;
             --team-blue: #4A9FD4;
@@ -32,11 +32,11 @@
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--obsidian);
             color: var(--ivory);
             overflow-x: hidden;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* Noise texture overlay */
@@ -85,7 +85,7 @@
             padding: 15px 30px;
             background: linear-gradient(180deg, var(--team-blue-dark) 0%, var(--team-blue-light) 100%);
             border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(59, 130, 196, 0.3);
+            box-shadow: 0 10px 40px rgba(59, 130, 196, 0.25);
         }
 
         .loader-logo span {
@@ -99,7 +99,7 @@
         .loader {
             width: 60px;
             height: 60px;
-            border: 1px solid rgba(201, 169, 98, 0.2);
+            border: 1px solid rgba(160, 203, 232, 0.2);
             border-top-color: var(--gold);
             border-radius: 50%;
             animation: spin 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
@@ -200,7 +200,7 @@
             background: transparent;
             border: 1px solid var(--gold);
             color: var(--gold);
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 0.75rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
@@ -418,10 +418,12 @@
         }
 
         .content-panel p {
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.7;
             color: var(--titanium);
             margin-bottom: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
         }
 
         .content-panel h2 {
@@ -526,7 +528,7 @@
         .cta-button:hover {
             background: var(--gold-light);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(201, 169, 98, 0.3);
+            box-shadow: 0 10px 30px rgba(160, 203, 232, 0.3);
         }
 
         .cta-button svg {
