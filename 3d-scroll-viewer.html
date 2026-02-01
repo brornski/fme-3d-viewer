@@ -926,6 +926,16 @@
                 font-size: 1.1rem;
             }
 
+            /* Doctors section - centered on mobile too */
+            .section-doctors {
+                justify-content: center;
+            }
+
+            .section-doctors .content-panel {
+                background: transparent;
+                text-align: center;
+            }
+
             /* CTA section */
             .section-cta {
                 justify-content: center;
@@ -1328,7 +1338,7 @@
 
         // Mobile keyframes - FIXED zoom, no size changes, only rotation
         const mobileKeyframes = [
-            // All keyframes use same zoom (12) - NO zooming at all
+            // Fixed zoom through content sections, shrinks before doctors
             { scroll: 0.00, x: 0,    y: 1.2,   zoom: 12.0, rotX: 0, rotY: frontFace,                   rotZ: 0 },
             { scroll: 0.08, x: 0,    y: 1.1,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 0.3,   rotZ: 0 },
             { scroll: 0.15, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 1,     rotZ: 0 },
@@ -1338,11 +1348,13 @@
             { scroll: 0.45, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 3,     rotZ: 0 },
             { scroll: 0.52, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 4,     rotZ: 0 },
             { scroll: 0.58, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 4.3,   rotZ: 0 },
-            { scroll: 0.65, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 5,     rotZ: 0 },
-            { scroll: 0.72, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 6,     rotZ: 0 },
-            { scroll: 0.80, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 6.3,   rotZ: 0 },
-            { scroll: 0.88, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 7,     rotZ: 0 },
-            { scroll: 1.00, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 8,     rotZ: 0 },
+            // Exit: shrink before doctors section (fade handles the rest)
+            { scroll: 0.64, x: 0,    y: 1.0,   zoom: 15.0, rotX: 0, rotY: frontFace + Math.PI * 5,     rotZ: 0 },
+            // Faded out from here
+            { scroll: 0.72, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 6,     rotZ: 0 },
+            { scroll: 0.80, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 6.3,   rotZ: 0 },
+            { scroll: 0.88, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 7,     rotZ: 0 },
+            { scroll: 1.00, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 8,     rotZ: 0 },
         ];
 
         // Select keyframes based on device
