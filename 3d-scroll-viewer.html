@@ -1240,7 +1240,7 @@
         let currentRotationY = Math.PI; // Match initial pose
 
         // Position and zoom targets (adjusted for mobile)
-        const initialZoom = isMobile ? 12.0 : 6.5;
+        const initialZoom = isMobile ? 12.0 : 7.0;
         const initialY = isMobile ? 1.2 : 0;
         let targetPositionX = 0;
         let targetPositionY = initialY;
@@ -1261,32 +1261,33 @@
         // Front face offset. Slow down at content sections by having less rotation change.
         const frontFace = Math.PI; // Rotate 180 to show front face (since model is flipped)
 
-        // Desktop keyframes - model moves side to side
+        // Desktop keyframes - model stays at comfortable distance, gentle side-to-side
+        // Front face lands on even π multiples (2, 4, 6, 8) to align with content sections
+        // Content: Hero(left), Benefits(right), Tech(left), Doctors(right), CTA(center)
+        // Model sits OPPOSITE side of text for visual balance
         const desktopKeyframes = [
-            // Start: Front flat side facing camera
-            { scroll: 0.00, x: 0.5,  y: 0,     zoom: 6.5, rotX: 0, rotY: frontFace,             rotZ: 0 },
-            // Section 1 - Hero: HOLD front face longer (slow rotation)
-            { scroll: 0.08, x: 0.8,  y: 0,     zoom: 5.0, rotX: 0, rotY: frontFace + Math.PI * 0.3, rotZ: 0 },
-            { scroll: 0.15, x: 1.0,  y: 0,     zoom: 4.5, rotX: 0, rotY: frontFace + Math.PI * 1, rotZ: 0 },
-            // Transition - spin faster
-            { scroll: 0.22, x: 0,    y: 0.15,  zoom: 4.0, rotX: 0, rotY: frontFace + Math.PI * 2, rotZ: 0 },
-            // Section 2 - Benefits: Land on front face again
-            { scroll: 0.30, x: -1.0, y: 0,     zoom: 3.5, rotX: 0, rotY: frontFace + Math.PI * 2, rotZ: 0 },
-            { scroll: 0.38, x: -0.8, y: 0,     zoom: 3.3, rotX: 0, rotY: frontFace + Math.PI * 2.3, rotZ: 0 },
-            // Transition - spin faster
-            { scroll: 0.45, x: -0.5, y: -0.1,  zoom: 3.2, rotX: 0, rotY: frontFace + Math.PI * 3, rotZ: 0 },
-            // Section 3 - Technology: Land on front face
-            { scroll: 0.52, x: 1.0,  y: 0,     zoom: 3.0, rotX: 0, rotY: frontFace + Math.PI * 4, rotZ: 0 },
-            { scroll: 0.58, x: 0.8,  y: 0,     zoom: 3.1, rotX: 0, rotY: frontFace + Math.PI * 4.3, rotZ: 0 },
-            // Transition
-            { scroll: 0.65, x: 0.3,  y: 0.1,   zoom: 3.3, rotX: 0, rotY: frontFace + Math.PI * 5, rotZ: 0 },
-            // Section 4 - Doctors: Land on front face
-            { scroll: 0.72, x: -1.0, y: 0,     zoom: 3.8, rotX: 0, rotY: frontFace + Math.PI * 6, rotZ: 0 },
-            { scroll: 0.80, x: -0.5, y: 0,     zoom: 3.5, rotX: 0, rotY: frontFace + Math.PI * 6.3, rotZ: 0 },
-            // Transition to finale
-            { scroll: 0.88, x: 0,    y: 0.1,   zoom: 4.0, rotX: 0, rotY: frontFace + Math.PI * 7, rotZ: 0 },
-            // Section 5 - CTA: End on front face
-            { scroll: 1.00, x: 0.5,  y: 0,     zoom: 6.5, rotX: 0, rotY: frontFace + Math.PI * 8, rotZ: 0 },
+            // Hero: model right, front face showing (text is left)
+            { scroll: 0.00, x: 0.5,  y: 0,    zoom: 7.0, rotX: 0, rotY: frontFace,                  rotZ: 0 },
+            { scroll: 0.10, x: 0.6,  y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 0.15, rotZ: 0 },
+            // Transition: spin across to left side
+            { scroll: 0.20, x: 0,    y: 0.08, zoom: 7.0, rotX: 0, rotY: frontFace + Math.PI * 1.0,  rotZ: 0 },
+            // Benefits: model left, front face (text is right)
+            { scroll: 0.30, x: -0.6, y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 2.0,  rotZ: 0 },
+            { scroll: 0.38, x: -0.55,y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 2.15, rotZ: 0 },
+            // Transition: spin across to right side
+            { scroll: 0.44, x: 0,    y: 0.08, zoom: 7.0, rotX: 0, rotY: frontFace + Math.PI * 3.0,  rotZ: 0 },
+            // Technology: model right, front face (text is left)
+            { scroll: 0.52, x: 0.6,  y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 4.0,  rotZ: 0 },
+            { scroll: 0.58, x: 0.55, y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 4.15, rotZ: 0 },
+            // Transition: spin across to left side
+            { scroll: 0.64, x: 0,    y: 0.08, zoom: 7.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,  rotZ: 0 },
+            // Doctors: model left, front face (text is right)
+            { scroll: 0.72, x: -0.6, y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 6.0,  rotZ: 0 },
+            { scroll: 0.80, x: -0.55,y: 0,    zoom: 6.8, rotX: 0, rotY: frontFace + Math.PI * 6.15, rotZ: 0 },
+            // Transition to CTA
+            { scroll: 0.88, x: 0,    y: 0.08, zoom: 7.0, rotX: 0, rotY: frontFace + Math.PI * 7.0,  rotZ: 0 },
+            // CTA: model centered, front face, eased back
+            { scroll: 1.00, x: 0,    y: 0,    zoom: 7.5, rotX: 0, rotY: frontFace + Math.PI * 8.0,  rotZ: 0 },
         ];
 
         // Mobile keyframes - FIXED zoom, no size changes, only rotation
