@@ -1235,13 +1235,22 @@
             depth: true
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 3)); // Higher pixel ratio for sharper rendering
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1.4;
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
+
+        // Handle WebGL context loss gracefully (prevents crash→reload loop)
+        renderer.domElement.addEventListener('webglcontextlost', (e) => {
+            e.preventDefault();
+            console.warn('WebGL context lost');
+        });
+        renderer.domElement.addEventListener('webglcontextrestored', () => {
+            console.log('WebGL context restored');
+        });
 
         // Environment lighting
         const pmremGenerator = new THREE.PMREMGenerator(renderer);
@@ -1289,7 +1298,7 @@
         const envMesh = new THREE.Mesh(envGeo, envMat);
         envScene.add(envMesh);
 
-        const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(2048); // High res environment map for sharp metal reflections
+        const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(512);
         const cubeCamera = new THREE.CubeCamera(0.1, 100, cubeRenderTarget);
         cubeCamera.update(renderer, envScene);
         const envMap = pmremGenerator.fromCubemap(cubeRenderTarget.texture).texture;
