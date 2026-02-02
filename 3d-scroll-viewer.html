@@ -842,11 +842,14 @@
                 justify-content: flex-end;
             }
 
-            /* Content panels - clean solid background, no overlap */
+            /* Content panels - gradient fade from model area to content */
             .content-panel {
                 max-width: 100%;
-                background: var(--obsidian);
-                padding: 3rem 6%;
+                background: linear-gradient(to bottom,
+                    rgba(13, 13, 13, 0) 0px,
+                    rgba(13, 13, 13, 0.8) 40px,
+                    rgba(13, 13, 13, 1) 80px);
+                padding: 5.5rem 6% 2.5rem;
                 margin: 0;
                 text-align: center;
             }
@@ -1023,6 +1026,36 @@
                 justify-content: center;
             }
 
+            /* Model glow - repositioned for mobile */
+            #model-glow {
+                top: 30%;
+                width: 200px;
+                height: 200px;
+            }
+
+            /* Footer - stacked on mobile */
+            footer {
+                padding: 3rem 6% 1.5rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem 1.5rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
             /* Scroll indicator */
             .scroll-indicator {
                 bottom: 25px;
@@ -1031,6 +1064,51 @@
             .scroll-indicator span {
                 font-size: 0.6rem;
                 letter-spacing: 0.25em;
+            }
+        }
+
+        /* Tablet - intermediate layout */
+        @media (min-width: 769px) and (max-width: 1199px) {
+            nav {
+                padding: 1.2rem 2rem;
+            }
+
+            .scroll-section {
+                padding: 0 5%;
+            }
+
+            .content-panel {
+                max-width: 380px;
+            }
+
+            .content-panel h1 {
+                font-size: clamp(2.5rem, 5vw, 3.5rem);
+            }
+
+            .content-panel h2 {
+                font-size: clamp(2rem, 4.5vw, 3rem);
+            }
+
+            .locations-mini {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.75rem;
+            }
+
+            .location-mini {
+                padding: 0.8rem;
+            }
+
+            .location-mini h5 {
+                font-size: 1rem;
+            }
+
+            .location-mini span {
+                font-size: 0.75rem;
+            }
+
+            #model-glow {
+                width: 280px;
+                height: 280px;
             }
         }
     </style>
@@ -1343,17 +1421,19 @@
         flipGroup.add(pivotGroup);
         scene.add(flipGroup);
 
-        // Detect mobile
+        // Detect device type
         const isMobile = window.innerWidth <= 768;
+        const isTablet = window.innerWidth > 768 && window.innerWidth <= 1199;
 
         // Target rotations (controlled by scroll)
         // Model is pre-rotated to stand upright, so only Y rotation needed for spinning
         let targetRotationY = Math.PI; // Start rotated to show front face (flipped model)
         let currentRotationY = Math.PI; // Match initial pose
 
-        // Position and zoom targets (adjusted for mobile)
-        const initialZoom = isMobile ? 12.0 : 10.0;
-        const initialY = isMobile ? 1.2 : 0;
+        // Position and zoom targets (adjusted for device)
+        // Mobile: model pushed to upper viewport so content panels don't cover it
+        const initialZoom = isMobile ? 10.0 : 10.0;
+        const initialY = isMobile ? 2.2 : isTablet ? 0.2 : 0;
         let targetPositionX = 0;
         let targetPositionY = initialY;
         let targetZoom = initialZoom;
@@ -1401,29 +1481,47 @@
             { scroll: 1.00, x: 0,    y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 8.0,  rotZ: 0 },
         ];
 
-        // Mobile keyframes - FIXED zoom, no size changes, only rotation
+        // Mobile keyframes - model pushed to upper viewport, content scrolls below
+        // y=2.0-2.2 positions model in top ~30% of screen
+        // zoom=10 keeps model a good size without overwhelming small screens
         const mobileKeyframes = [
-            // Fixed zoom through content sections, shrinks before doctors
-            { scroll: 0.00, x: 0,    y: 1.2,   zoom: 12.0, rotX: 0, rotY: frontFace,                   rotZ: 0 },
-            { scroll: 0.08, x: 0,    y: 1.1,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 0.3,   rotZ: 0 },
-            { scroll: 0.15, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 1,     rotZ: 0 },
-            { scroll: 0.22, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 2,     rotZ: 0 },
-            { scroll: 0.30, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 2,     rotZ: 0 },
-            { scroll: 0.38, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 2.3,   rotZ: 0 },
-            { scroll: 0.45, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 3,     rotZ: 0 },
-            { scroll: 0.52, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 4,     rotZ: 0 },
-            { scroll: 0.58, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 4.3,   rotZ: 0 },
-            // Exit: shrink before doctors section (fade handles the rest)
-            { scroll: 0.64, x: 0,    y: 1.0,   zoom: 15.0, rotX: 0, rotY: frontFace + Math.PI * 5,     rotZ: 0 },
-            // Faded out from here
-            { scroll: 0.72, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 6,     rotZ: 0 },
-            { scroll: 0.80, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 6.3,   rotZ: 0 },
-            { scroll: 0.88, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 7,     rotZ: 0 },
-            { scroll: 1.00, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 8,     rotZ: 0 },
+            { scroll: 0.00, x: 0, y: 2.2,  zoom: 10.0, rotX: 0, rotY: frontFace,                   rotZ: 0 },
+            { scroll: 0.08, x: 0, y: 2.1,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 0.3,   rotZ: 0 },
+            { scroll: 0.15, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1,     rotZ: 0 },
+            { scroll: 0.22, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2,     rotZ: 0 },
+            { scroll: 0.30, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2,     rotZ: 0 },
+            { scroll: 0.38, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2.3,   rotZ: 0 },
+            { scroll: 0.45, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3,     rotZ: 0 },
+            { scroll: 0.52, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4,     rotZ: 0 },
+            { scroll: 0.58, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4.3,   rotZ: 0 },
+            // Exit: zoom out before doctors
+            { scroll: 0.64, x: 0, y: 2.0,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 5,     rotZ: 0 },
+            // Faded out
+            { scroll: 0.72, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 6,     rotZ: 0 },
+            { scroll: 0.80, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 6.3,   rotZ: 0 },
+            { scroll: 0.88, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 7,     rotZ: 0 },
+            { scroll: 1.00, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 8,     rotZ: 0 },
+        ];
+
+        // Tablet keyframes - same as desktop but gentler horizontal movement for narrower screens
+        const tabletKeyframes = [
+            { scroll: 0.00, x: 0.3,   y: 0.2,  zoom: 10.0, rotX: 0, rotY: frontFace,                  rotZ: 0 },
+            { scroll: 0.10, x: 0.4,   y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 0.15, rotZ: 0 },
+            { scroll: 0.20, x: 0,     y: 0.25, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1.0,  rotZ: 0 },
+            { scroll: 0.30, x: -0.4,  y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.0,  rotZ: 0 },
+            { scroll: 0.38, x: -0.35, y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.15, rotZ: 0 },
+            { scroll: 0.44, x: 0,     y: 0.25, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3.0,  rotZ: 0 },
+            { scroll: 0.52, x: 0.4,   y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.0,  rotZ: 0 },
+            { scroll: 0.58, x: 0.35,  y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.15, rotZ: 0 },
+            { scroll: 0.64, x: -0.2,  y: 0.2,  zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,  rotZ: 0 },
+            { scroll: 0.72, x: -0.3,  y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.0,  rotZ: 0 },
+            { scroll: 0.80, x: -0.3,  y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.5,  rotZ: 0 },
+            { scroll: 0.88, x: 0,     y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 7.0,  rotZ: 0 },
+            { scroll: 1.00, x: 0,     y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 8.0,  rotZ: 0 },
         ];
 
         // Select keyframes based on device
-        const keyframes = isMobile ? mobileKeyframes : desktopKeyframes;
+        const keyframes = isMobile ? mobileKeyframes : isTablet ? tabletKeyframes : desktopKeyframes;
 
         // Interpolate between keyframes
         function getInterpolatedValues(progress) {
