@@ -302,19 +302,13 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 300px;
-            height: 300px;
+            width: 350px;
+            height: 350px;
             transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(74, 159, 212, 0.35) 0%, rgba(59, 130, 196, 0.15) 40%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 40%, transparent 70%);
             border-radius: 50%;
-            opacity: 0;
             pointer-events: none;
-            filter: blur(30px);
-            transition: opacity 0.15s ease;
-        }
-
-        #canvas-container.glow-active #model-glow {
-            opacity: 1;
+            filter: blur(40px);
         }
 
         /* Scroll container - creates scroll height */
@@ -1640,27 +1634,6 @@
             checkPanelVisibility();
             updateCanvasFade();
         }, { passive: true });
-
-        // Hover glow on 3D model
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
-        const glowEl = document.getElementById('model-glow');
-
-        document.addEventListener('mousemove', (e) => {
-            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = model ? raycaster.intersectObject(flipGroup, true) : [];
-
-            if (intersects.length > 0 && !container.classList.contains('exit')) {
-                container.classList.add('glow-active');
-                glowEl.style.left = e.clientX + 'px';
-                glowEl.style.top = e.clientY + 'px';
-            } else {
-                container.classList.remove('glow-active');
-            }
-        });
 
         // Animation loop
         function animate() {
