@@ -291,6 +291,25 @@
                         transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        #canvas-container.loaded.exit {
+            opacity: 0;
+            transform: scale(0.92) translateY(40px);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #model-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 350px;
+            height: 350px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 40%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(40px);
+        }
 
         /* Scroll container - creates scroll height */
         .scroll-container {
@@ -616,37 +635,6 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--gold);
-        }
-
-        /* Before & After section - centered */
-        .section-before-after {
-            justify-content: center;
-            text-align: center;
-        }
-
-        .section-before-after .content-panel {
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .section-before-after .content-panel.from-left {
-            transform: translateY(50px);
-        }
-
-        .section-before-after .content-panel.visible {
-            transform: translateY(0);
-        }
-
-        .section-before-after .hero-eyebrow {
-            justify-content: center;
-        }
-
-        .before-after-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 2rem;
         }
 
         /* Doctors section - centered */
@@ -986,21 +974,6 @@
                 font-size: 1.1rem;
             }
 
-            /* Before & After - centered on mobile */
-            .section-before-after {
-                justify-content: center;
-            }
-
-            .section-before-after .content-panel {
-                background: transparent;
-                text-align: center;
-            }
-
-            .before-after-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
             /* Doctors section - centered on mobile too */
             .section-doctors {
                 justify-content: center;
@@ -1084,7 +1057,9 @@
     </nav>
 
     <!-- Fixed 3D Canvas -->
-    <div id="canvas-container"></div>
+    <div id="canvas-container">
+        <div id="model-glow"></div>
+    </div>
 
     <!-- Scroll indicator -->
     <div class="scroll-indicator" id="scrollIndicator">
@@ -1134,19 +1109,7 @@
             </div>
         </section>
 
-        <!-- Section 4: Before & After - placeholder for photos -->
-        <section class="scroll-section section-before-after" id="before-after">
-            <div class="content-panel from-left" data-animate>
-                <p class="hero-eyebrow">Real Results</p>
-                <h2>Before &amp;<br><em>After</em></h2>
-                <p>See the transformative results our patients have experienced with the FME system.</p>
-                <div class="before-after-grid">
-                    <!-- Photos will be added here -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 5: Doctors - Centered -->
+        <!-- Section 4: Doctors - Centered -->
         <section class="scroll-section section-doctors" id="doctors" data-rotation="270">
             <div class="content-panel from-left" data-animate>
                 <p class="hero-eyebrow" style="color: #C9A962;">Your Expert Team</p>
@@ -1420,19 +1383,18 @@
             // Benefits: model right, front face (text is left)
             { scroll: 0.52, x: 0.6,  y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.0,  rotZ: 0 },
             { scroll: 0.58, x: 0.55, y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.15, rotZ: 0 },
-            // Exit: model rises up off the top of the screen
-            { scroll: 0.62, x: 0.3,  y: 1.5,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.5,  rotZ: 0 },
-            { scroll: 0.67, x: 0,    y: 5.0,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 5.0,  rotZ: 0 },
-            // Off screen from here
-            { scroll: 0.72, x: 0,    y: 5.0,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 5.5,  rotZ: 0 },
-            { scroll: 0.80, x: 0,    y: 5.0,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 6.0,  rotZ: 0 },
-            { scroll: 0.88, x: 0,    y: 5.0,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 6.5,  rotZ: 0 },
-            { scroll: 1.00, x: 0,    y: 5.0,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 7.0,  rotZ: 0 },
+            // Exit: model shrinks and drifts left (fading out via opacity)
+            { scroll: 0.64, x: -0.3, y: 0,    zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,  rotZ: 0 },
+            // From here model is invisible (faded out)
+            { scroll: 0.72, x: -0.4, y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.0,  rotZ: 0 },
+            { scroll: 0.80, x: -0.4, y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.5,  rotZ: 0 },
+            { scroll: 0.88, x: 0,    y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 7.0,  rotZ: 0 },
+            { scroll: 1.00, x: 0,    y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 8.0,  rotZ: 0 },
         ];
 
         // Mobile keyframes - FIXED zoom, no size changes, only rotation
         const mobileKeyframes = [
-            // Fixed zoom through content sections, exits upward after Benefits
+            // Fixed zoom through content sections, shrinks before doctors
             { scroll: 0.00, x: 0,    y: 1.2,   zoom: 12.0, rotX: 0, rotY: frontFace,                   rotZ: 0 },
             { scroll: 0.08, x: 0,    y: 1.1,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 0.3,   rotZ: 0 },
             { scroll: 0.15, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 1,     rotZ: 0 },
@@ -1442,14 +1404,13 @@
             { scroll: 0.45, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 3,     rotZ: 0 },
             { scroll: 0.52, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 4,     rotZ: 0 },
             { scroll: 0.58, x: 0,    y: 1.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 4.3,   rotZ: 0 },
-            // Exit: model rises up off top of screen
-            { scroll: 0.62, x: 0,    y: 2.5,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 4.5,   rotZ: 0 },
-            { scroll: 0.67, x: 0,    y: 6.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 5,     rotZ: 0 },
-            // Off screen from here
-            { scroll: 0.72, x: 0,    y: 6.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 5.5,   rotZ: 0 },
-            { scroll: 0.80, x: 0,    y: 6.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 6,     rotZ: 0 },
-            { scroll: 0.88, x: 0,    y: 6.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 6.5,   rotZ: 0 },
-            { scroll: 1.00, x: 0,    y: 6.0,   zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 7,     rotZ: 0 },
+            // Exit: shrink before doctors section (fade handles the rest)
+            { scroll: 0.64, x: 0,    y: 1.0,   zoom: 15.0, rotX: 0, rotY: frontFace + Math.PI * 5,     rotZ: 0 },
+            // Faded out from here
+            { scroll: 0.72, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 6,     rotZ: 0 },
+            { scroll: 0.80, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 6.3,   rotZ: 0 },
+            { scroll: 0.88, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 7,     rotZ: 0 },
+            { scroll: 1.00, x: 0,    y: 1.0,   zoom: 16.0, rotX: 0, rotY: frontFace + Math.PI * 8,     rotZ: 0 },
         ];
 
         // Select keyframes based on device
@@ -1592,6 +1553,7 @@
 
                 // Initial checks
                 updateScrollAnimation();
+                updateCanvasFade();
             },
             (progress) => {
                 const percent = (progress.loaded / progress.total * 100).toFixed(0);
@@ -1645,10 +1607,32 @@
             });
         }
 
+        // Fade out 3D model before doctors section appears
+        // Uses class toggle so CSS transition handles the animation
+        // Same cubic-bezier + timing as the content panels popping in
+        const doctorsSection = document.getElementById('doctors');
+        const ctaSection = document.getElementById('consultation');
+        function updateCanvasFade() {
+            if (!container.classList.contains('loaded')) return;
+
+            const doctorsRect = doctorsSection.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Trigger exit only when doctors section is about to enter the viewport
+            const triggerPoint = viewportHeight * 0.4;
+
+            if (doctorsRect.top < triggerPoint) {
+                container.classList.add('exit');
+            } else {
+                container.classList.remove('exit');
+            }
+        }
+
         // Scroll event listener
         window.addEventListener('scroll', () => {
             updateScrollAnimation();
             checkPanelVisibility();
+            updateCanvasFade();
         }, { passive: true });
 
         // Animation loop
