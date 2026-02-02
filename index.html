@@ -1000,21 +1000,28 @@
                 padding: 3rem 6%;
             }
 
-            /* Locations - clean 2 column grid */
+            /* Locations - match desktop styling */
             .locations-mini {
                 grid-template-columns: 1fr 1fr;
                 gap: 1rem;
-                margin-top: 2rem;
-                text-align: center;
+                margin-top: 1.5rem;
+                text-align: left;
             }
 
             .location-mini {
                 padding: 1rem;
-                border-color: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             .location-mini h5 {
-                font-size: 0.95rem;
+                color: var(--team-blue);
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+
+            .location-mini span {
+                color: var(--titanium);
+                font-size: 0.8rem;
             }
 
             /* CTA Button - larger touch target */
