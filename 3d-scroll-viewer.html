@@ -1635,22 +1635,29 @@
         // Mobile keyframes - model pushed to upper viewport, content scrolls below
         // y=2.0-2.2 positions model in top ~30% of screen
         // zoom=10 keeps model a good size without overwhelming small screens
+        // KEY: Front face shows at EVEN π multiples (0, 2, 4, 6, 8)
+        //      Back face shows at ODD π multiples (1, 3, 5, 7)
+        //      Transitions spin full 360° so front always faces user between sections
         const mobileKeyframes = [
+            // Hero section — front face
             { scroll: 0.00, x: 0, y: 2.2,  zoom: 10.0, rotX: 0, rotY: frontFace,                   rotZ: 0 },
-            { scroll: 0.08, x: 0, y: 2.1,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 0.3,   rotZ: 0 },
-            { scroll: 0.15, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1,     rotZ: 0 },
+            { scroll: 0.06, x: 0, y: 2.15, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 0.15,  rotZ: 0 },
+            // Transition to TAD — full 360° spin lands on front
+            { scroll: 0.15, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2,     rotZ: 0 },
+            // TAD section — front face, gentle rock
             { scroll: 0.22, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2,     rotZ: 0 },
-            { scroll: 0.30, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2,     rotZ: 0 },
-            { scroll: 0.38, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2.3,   rotZ: 0 },
-            { scroll: 0.45, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3,     rotZ: 0 },
-            { scroll: 0.52, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4,     rotZ: 0 },
-            { scroll: 0.58, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4.3,   rotZ: 0 },
-            // Exit: zoom out before doctors
-            { scroll: 0.64, x: 0, y: 2.0,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 5,     rotZ: 0 },
-            // Faded out
+            { scroll: 0.30, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2.15,  rotZ: 0 },
+            // Transition to Benefits — full 360° spin lands on front
+            { scroll: 0.40, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4,     rotZ: 0 },
+            // Benefits section — front face, gentle rock
+            { scroll: 0.47, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4,     rotZ: 0 },
+            { scroll: 0.55, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4.15,  rotZ: 0 },
+            // Exit — spin and zoom out (front face as it fades)
+            { scroll: 0.62, x: 0, y: 2.0,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6,     rotZ: 0 },
+            // Faded out from here
             { scroll: 0.72, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 6,     rotZ: 0 },
-            { scroll: 0.80, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 6.3,   rotZ: 0 },
-            { scroll: 0.88, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 7,     rotZ: 0 },
+            { scroll: 0.80, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 6.15,  rotZ: 0 },
+            { scroll: 0.88, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 8,     rotZ: 0 },
             { scroll: 1.00, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 8,     rotZ: 0 },
         ];
 
