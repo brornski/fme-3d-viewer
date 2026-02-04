@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Facegenics Midface Expander (FME) | Team Dental</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,6 +42,27 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Touch-optimized interactive elements */
+        a, button, .cta-button, .nav-cta, .download-model-btn {
+            touch-action: manipulation;
+        }
+
+        /* Touch feedback — subtle scale on press */
+        @media (hover: none) and (pointer: coarse) {
+            .cta-button:active,
+            .nav-cta:active {
+                transform: scale(0.97);
+                opacity: 0.9;
+            }
+            .download-model-btn:active {
+                opacity: 0.7;
+            }
+            .footer-links a:active {
+                opacity: 0.6;
+            }
         }
 
         /* WebKit scrollbar */
@@ -433,6 +454,7 @@
         /* Section 1 - Hero */
         .section-hero {
             min-height: 100vh;
+            min-height: 100dvh;
         }
 
         .hero-eyebrow {
@@ -842,20 +864,34 @@
             color: var(--titanium);
         }
 
-        /* Responsive - Apple-inspired clean mobile design */
+        /* ========================================
+           MOBILE — phones ≤768px
+           Apple-inspired: safe areas, fluid type,
+           proper touch targets, smooth gradients
+           ======================================== */
         @media (max-width: 768px) {
+            /* Nav — safe area for notch/Dynamic Island */
             nav {
                 padding: 1rem 1.5rem;
-                background: rgba(13, 13, 13, 0.9);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
+                padding-top: max(1rem, env(safe-area-inset-top));
+                padding-left: max(1.5rem, env(safe-area-inset-left));
+                padding-right: max(1.5rem, env(safe-area-inset-right));
+                background: rgba(13, 13, 13, 0.92);
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
             }
 
-            .nav-links {
-                display: none;
+            .nav-links { display: none; }
+
+            .nav-cta {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.72rem;
             }
 
-            /* Each section is full height with clear separation */
+            /* Sections — full viewport height */
             .scroll-section {
                 min-height: 100vh;
                 min-height: 100dvh;
@@ -866,19 +902,19 @@
                 align-items: stretch;
             }
 
-            /* Hero section - model at top, content at bottom */
-            .section-hero {
-                justify-content: flex-end;
-            }
+            .section-hero { justify-content: flex-end; }
 
-            /* Content panels - gradient fade from model area to content */
+            /* Content panels — smoother multi-stop gradient */
             .content-panel {
                 max-width: 100%;
                 background: linear-gradient(to bottom,
                     rgba(13, 13, 13, 0) 0px,
-                    rgba(13, 13, 13, 0.8) 40px,
-                    rgba(13, 13, 13, 1) 80px);
-                padding: 5.5rem 6% 2.5rem;
+                    rgba(13, 13, 13, 0.4) 24px,
+                    rgba(13, 13, 13, 0.75) 48px,
+                    rgba(13, 13, 13, 0.92) 72px,
+                    rgba(13, 13, 13, 1) 96px);
+                padding: 5.5rem 7% 2.5rem;
+                padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
                 margin: 0;
                 text-align: center;
             }
@@ -895,53 +931,46 @@
                 opacity: 1;
             }
 
-            .content-panel.from-right {
-                text-align: center;
-            }
+            .content-panel.from-right { text-align: center; }
 
-            /* Typography - clean and bold like Apple */
+            /* Typography — fluid clamp, no hard max-width on paragraphs */
             .content-panel h1 {
-                font-size: clamp(2.2rem, 9vw, 3rem);
+                font-size: clamp(2.2rem, 8.5vw, 3rem);
                 letter-spacing: -0.03em;
-                margin-bottom: 1.5rem;
+                margin-bottom: 1.25rem;
             }
 
             .content-panel h2 {
                 font-size: clamp(1.8rem, 7vw, 2.4rem);
                 letter-spacing: -0.02em;
-                margin-bottom: 1.25rem;
-            }
-
-            .content-panel h3 {
-                font-size: 1.5rem;
                 margin-bottom: 1rem;
             }
 
+            .content-panel h3 {
+                font-size: clamp(1.4rem, 5.5vw, 1.8rem);
+                margin-bottom: 0.75rem;
+            }
+
             .content-panel p {
-                font-size: 1rem;
-                line-height: 1.6;
+                font-size: clamp(0.95rem, 3.8vw, 1.05rem);
+                line-height: 1.65;
                 color: var(--titanium);
-                max-width: 320px;
+                max-width: 88%;
                 margin-left: auto;
                 margin-right: auto;
                 margin-bottom: 1.5rem;
             }
 
-            /* Eyebrow - centered */
+            /* Eyebrow — centered, no bar */
             .hero-eyebrow {
                 justify-content: center;
                 margin-bottom: 0.75rem;
+                font-size: clamp(0.65rem, 2.5vw, 0.75rem);
             }
+            .hero-eyebrow::before { display: none; }
+            .from-right .hero-eyebrow { justify-content: center; }
 
-            .hero-eyebrow::before {
-                display: none;
-            }
-
-            .from-right .hero-eyebrow {
-                justify-content: center;
-            }
-
-            /* Benefits list - centered and clean */
+            /* Benefits list — centered, proper spacing */
             .benefits-list {
                 display: flex;
                 flex-direction: column;
@@ -951,30 +980,22 @@
 
             .benefits-list li {
                 justify-content: center;
-                font-size: 1rem;
+                font-size: clamp(0.9rem, 3.5vw, 1.05rem);
                 margin-bottom: 0.5rem;
             }
 
-            .from-right .benefits-list li {
-                justify-content: center;
-            }
+            .from-right .benefits-list li { justify-content: center; }
+            .benefits-list li::before { width: 16px; }
+            .from-right .benefits-list li::before { order: 0; }
 
-            .benefits-list li::before {
-                width: 16px;
-            }
-
-            .from-right .benefits-list li::before {
-                order: 0;
-            }
-
-            /* Badge - centered */
+            /* Badge — centered */
             .badge {
                 margin-left: auto;
                 margin-right: auto;
                 margin-bottom: 1.25rem;
             }
 
-            /* Doctors - clean vertical stack */
+            /* Doctors — vertical stack */
             .doctors-inline {
                 flex-direction: column;
                 align-items: center;
@@ -982,9 +1003,7 @@
                 margin-top: 2rem;
             }
 
-            .from-right .doctors-inline {
-                justify-content: center;
-            }
+            .from-right .doctors-inline { justify-content: center; }
 
             .doctor-mini {
                 flex-direction: column;
@@ -992,25 +1011,18 @@
                 gap: 0.75rem;
             }
 
-            .from-right .doctor-mini {
-                flex-direction: column;
-            }
+            .from-right .doctor-mini { flex-direction: column; }
 
             .doctor-mini-avatar {
-                width: 60px;
-                height: 60px;
+                width: 64px;
+                height: 64px;
                 font-size: 1.1rem;
             }
 
-            .doctor-mini-info h4 {
-                font-size: 1.1rem;
-            }
+            .doctor-mini-info h4 { font-size: 1.1rem; }
 
-            /* Doctors section - centered on mobile too */
-            .section-doctors {
-                justify-content: center;
-            }
-
+            /* Doctors section — centered */
+            .section-doctors { justify-content: center; }
             .section-doctors .content-panel {
                 background: transparent;
                 text-align: center;
@@ -1026,52 +1038,59 @@
             .section-cta .content-panel {
                 background: transparent;
                 text-align: center;
-                padding: 3rem 6%;
+                padding: 3rem 7%;
             }
 
-            /* Locations - match desktop styling */
+            /* Locations — 2-col grid, matching desktop colors */
             .locations-mini {
                 grid-template-columns: 1fr 1fr;
-                gap: 1rem;
+                gap: 0.75rem;
                 margin-top: 1.5rem;
                 text-align: left;
             }
 
             .location-mini {
-                padding: 1rem;
+                padding: 0.85rem;
                 border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 6px;
             }
 
             .location-mini h5 {
                 color: var(--team-blue);
-                font-size: 1.1rem;
+                font-size: clamp(0.95rem, 3.5vw, 1.1rem);
                 font-weight: 600;
             }
 
             .location-mini span {
                 color: var(--titanium);
-                font-size: 0.8rem;
+                font-size: 0.78rem;
             }
 
-            /* CTA Button - larger touch target */
+            /* CTA Button — Apple HIG 44px min, centered */
             .cta-button {
                 padding: 1.1rem 2.5rem;
-                font-size: 0.85rem;
+                min-height: 48px;
+                font-size: 0.82rem;
                 width: 100%;
-                max-width: 280px;
+                max-width: 300px;
                 justify-content: center;
+                border-radius: 8px;
             }
 
-            /* Model glow - repositioned for mobile */
+            /* Download button — hidden on mobile */
+            .download-model-btn { display: none; }
+
+            /* Model glow — repositioned for upper viewport */
             #model-glow {
-                top: 30%;
+                top: 28%;
                 width: 200px;
                 height: 200px;
             }
 
-            /* Footer - stacked on mobile */
+            /* Footer — safe area bottom padding */
             footer {
-                padding: 3rem 6% 1.5rem;
+                padding: 3rem 7% 1.5rem;
+                padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
             }
 
             .footer-content {
@@ -1087,14 +1106,20 @@
                 gap: 1rem 1.5rem;
             }
 
+            .footer-links a {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+
             .footer-bottom {
                 flex-direction: column;
                 text-align: center;
             }
 
-            /* Scroll indicator */
+            /* Scroll indicator — safe area aware */
             .scroll-indicator {
-                bottom: 25px;
+                bottom: max(25px, env(safe-area-inset-bottom));
             }
 
             .scroll-indicator span {
@@ -1103,10 +1128,74 @@
             }
         }
 
-        /* Tablet - intermediate layout */
+        /* Small phones (iPhone SE, older devices ≤375px) */
+        @media (max-width: 375px) {
+            .content-panel {
+                padding: 4.5rem 5% 2rem;
+            }
+
+            .content-panel h1 {
+                font-size: clamp(1.9rem, 8vw, 2.4rem);
+            }
+
+            .content-panel h2 {
+                font-size: clamp(1.6rem, 7vw, 2rem);
+            }
+
+            .locations-mini {
+                grid-template-columns: 1fr;
+                gap: 0.6rem;
+            }
+
+            .cta-button {
+                max-width: 260px;
+                padding: 1rem 2rem;
+                font-size: 0.78rem;
+            }
+
+            .nav-logo-box { padding: 6px 12px; }
+            .nav-logo-box span { font-size: 0.8rem; }
+        }
+
+        /* Landscape phones — prevent content from being too tall */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .scroll-section {
+                min-height: auto;
+                padding: 2rem 5%;
+            }
+
+            .content-panel {
+                padding: 2rem 5% 1.5rem;
+                background: rgba(13, 13, 13, 0.95);
+            }
+
+            .content-panel h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); }
+            .content-panel h2 { font-size: clamp(1.5rem, 4.5vw, 2rem); }
+
+            .doctors-inline {
+                flex-direction: row;
+                gap: 2rem;
+            }
+
+            .doctor-mini {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .locations-mini {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .scroll-indicator { display: none; }
+        }
+
+        /* ========================================
+           TABLET — iPads, surface 769-1199px
+           ======================================== */
         @media (min-width: 769px) and (max-width: 1199px) {
             nav {
                 padding: 1.2rem 2rem;
+                padding-top: max(1.2rem, env(safe-area-inset-top));
             }
 
             .scroll-section {
@@ -1114,7 +1203,7 @@
             }
 
             .content-panel {
-                max-width: 380px;
+                max-width: 420px;
             }
 
             .content-panel h1 {
@@ -1125,27 +1214,53 @@
                 font-size: clamp(2rem, 4.5vw, 3rem);
             }
 
+            .content-panel p {
+                max-width: 380px;
+            }
+
+            .cta-button {
+                min-height: 48px;
+            }
+
+            .nav-cta {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+
             .locations-mini {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 0.75rem;
             }
 
             .location-mini {
-                padding: 0.8rem;
+                padding: 0.85rem;
+                border-radius: 6px;
             }
 
-            .location-mini h5 {
-                font-size: 1rem;
-            }
-
-            .location-mini span {
-                font-size: 0.75rem;
-            }
+            .location-mini h5 { font-size: 1rem; }
+            .location-mini span { font-size: 0.75rem; }
 
             #model-glow {
                 width: 280px;
                 height: 280px;
             }
+
+            footer {
+                padding-bottom: max(2rem, env(safe-area-inset-bottom));
+            }
+        }
+
+        /* ========================================
+           REDUCED MOTION — accessibility
+           ======================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .scroll-indicator { display: none; }
         }
     </style>
 </head>
