@@ -95,8 +95,8 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            -webkit-transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+            -webkit-transition: opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1);
         }
 
         #loading.hidden {
@@ -328,9 +328,9 @@
 
         #canvas-container.loaded.exit {
             opacity: 0;
-            transform: scale(0.92) translateY(40px);
-            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
-                        transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.95) translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.33, 1, 0.68, 1),
+                        transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
         }
 
         #model-glow {
@@ -388,59 +388,63 @@
             transform: translateX(0);
         }
 
-        /* Staggered animations for child elements */
+        /* Staggered child animations — GPU-only properties, easeOutCubic, tight 80ms stagger */
         .content-panel > * {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1),
+                        transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
         }
 
-        .content-panel.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
-        .content-panel.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
-        .content-panel.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
-        .content-panel.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
-        .content-panel.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
-        .content-panel.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.85s; }
+        .content-panel.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+        .content-panel.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.13s; }
+        .content-panel.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.21s; }
+        .content-panel.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.29s; }
+        .content-panel.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.37s; }
+        .content-panel.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.45s; }
 
-        /* Benefits list items stagger */
+        /* Benefits list — GPU-only, tight stagger */
         .benefits-list li {
             opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-12px);
+            transition: opacity 0.45s cubic-bezier(0.33, 1, 0.68, 1),
+                        transform 0.45s cubic-bezier(0.33, 1, 0.68, 1);
         }
 
         .from-right .benefits-list li {
-            transform: translateX(20px);
+            transform: translateX(12px);
         }
 
-        .content-panel.visible .benefits-list li:nth-child(1) { opacity: 1; transform: translateX(0); transition-delay: 0.5s; }
-        .content-panel.visible .benefits-list li:nth-child(2) { opacity: 1; transform: translateX(0); transition-delay: 0.65s; }
-        .content-panel.visible .benefits-list li:nth-child(3) { opacity: 1; transform: translateX(0); transition-delay: 0.8s; }
-        .content-panel.visible .benefits-list li:nth-child(4) { opacity: 1; transform: translateX(0); transition-delay: 0.95s; }
-        .content-panel.visible .benefits-list li:nth-child(5) { opacity: 1; transform: translateX(0); transition-delay: 1.1s; }
+        .content-panel.visible .benefits-list li:nth-child(1) { opacity: 1; transform: translateX(0); transition-delay: 0.25s; }
+        .content-panel.visible .benefits-list li:nth-child(2) { opacity: 1; transform: translateX(0); transition-delay: 0.33s; }
+        .content-panel.visible .benefits-list li:nth-child(3) { opacity: 1; transform: translateX(0); transition-delay: 0.41s; }
+        .content-panel.visible .benefits-list li:nth-child(4) { opacity: 1; transform: translateX(0); transition-delay: 0.49s; }
+        .content-panel.visible .benefits-list li:nth-child(5) { opacity: 1; transform: translateX(0); transition-delay: 0.57s; }
 
-        /* Doctors stagger */
+        /* Doctors — GPU-only, gentle entrance */
         .doctors-inline .doctor-mini {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(15px);
+            transition: opacity 0.5s cubic-bezier(0.33, 1, 0.68, 1),
+                        transform 0.5s cubic-bezier(0.33, 1, 0.68, 1);
         }
 
-        .content-panel.visible .doctors-inline .doctor-mini:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
-        .content-panel.visible .doctors-inline .doctor-mini:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.85s; }
+        .content-panel.visible .doctors-inline .doctor-mini:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+        .content-panel.visible .doctors-inline .doctor-mini:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
 
-        /* Locations stagger */
+        /* Locations — GPU-only, tight cascade */
         .locations-mini .location-mini {
             opacity: 0;
-            transform: translateY(15px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(10px);
+            transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1),
+                        transform 0.4s cubic-bezier(0.33, 1, 0.68, 1);
         }
 
-        .content-panel.visible .locations-mini .location-mini:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
-        .content-panel.visible .locations-mini .location-mini:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.8s; }
-        .content-panel.visible .locations-mini .location-mini:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.9s; }
-        .content-panel.visible .locations-mini .location-mini:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 1.0s; }
-        .content-panel.visible .locations-mini .location-mini:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 1.1s; }
+        .content-panel.visible .locations-mini .location-mini:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
+        .content-panel.visible .locations-mini .location-mini:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.43s; }
+        .content-panel.visible .locations-mini .location-mini:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.51s; }
+        .content-panel.visible .locations-mini .location-mini:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.59s; }
+        .content-panel.visible .locations-mini .location-mini:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.67s; }
 
         /* Section 1 - Hero */
         .section-hero {
@@ -694,7 +698,7 @@
         }
 
         .section-doctors .content-panel.from-left {
-            transform: translateY(50px);
+            transform: translateY(30px);
         }
 
         .section-doctors .content-panel.visible {
@@ -737,7 +741,7 @@
         }
 
         .section-cta .content-panel.from-left {
-            transform: translateY(50px);
+            transform: translateY(30px);
         }
 
         .section-cta .content-panel.visible {
@@ -805,7 +809,10 @@
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: opacity 0.3s cubic-bezier(0.33, 1, 0.68, 1),
+                        background 0.3s cubic-bezier(0.33, 1, 0.68, 1),
+                        color 0.3s cubic-bezier(0.33, 1, 0.68, 1),
+                        border-color 0.3s cubic-bezier(0.33, 1, 0.68, 1);
         }
 
         .download-model-btn:hover {
@@ -1843,9 +1850,8 @@
                     scrollIndicator.classList.add('intro-ready');
                 }, 2000);
 
-                // Initial checks
+                // Initial scroll position check
                 updateScrollAnimation();
-                updateCanvasFade();
             },
             (progress) => {
                 if (progress.total > 0) {
@@ -1882,58 +1888,60 @@
             }
         }
 
-        // Check which panels should be visible
-        // Wide threshold so content appears early and stays visible longer
-        function checkPanelVisibility() {
-            panels.forEach((panel) => {
-                const rect = panel.getBoundingClientRect();
-                // Trigger when panel enters 90% of viewport, stay visible until 10% remains
-                const isVisible = rect.top < window.innerHeight * 0.9 && rect.bottom > window.innerHeight * 0.1;
-
-                if (isVisible) {
-                    panel.classList.add('visible');
-                }
-                // Don't remove visible class - once shown, stays shown until scroll far past
-                // This prevents content from disappearing too quickly
-                else if (rect.top > window.innerHeight || rect.bottom < 0) {
-                    panel.classList.remove('visible');
+        // IntersectionObserver for panel visibility — no layout thrashing
+        // Replaces getBoundingClientRect() calls on every scroll frame
+        const panelObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    // Only remove if scrolled completely past
+                    const rect = entry.boundingClientRect;
+                    if (rect.top > window.innerHeight || rect.bottom < 0) {
+                        entry.target.classList.remove('visible');
+                    }
                 }
             });
-        }
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -10% 0px'
+        });
+        panels.forEach(panel => panelObserver.observe(panel));
 
         // Fade out 3D model before doctors section appears
-        // Uses class toggle so CSS transition handles the animation
-        // Same cubic-bezier + timing as the content panels popping in
         const doctorsSection = document.getElementById('doctors');
-        function updateCanvasFade() {
-            if (!container.classList.contains('loaded')) return;
+        const doctorsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    container.classList.add('exit');
+                } else {
+                    container.classList.remove('exit');
+                }
+            });
+        }, {
+            threshold: 0,
+            rootMargin: '-40% 0px 0px 0px'
+        });
+        if (doctorsSection) doctorsObserver.observe(doctorsSection);
 
-            const doctorsRect = doctorsSection.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-
-            // Trigger exit only when doctors section is about to enter the viewport
-            const triggerPoint = viewportHeight * 0.4;
-
-            if (doctorsRect.top < triggerPoint) {
-                container.classList.add('exit');
-            } else {
-                container.classList.remove('exit');
-            }
-        }
-
-        // Scroll event listener
+        // rAF-throttled scroll handler — only updateScrollAnimation needs per-frame updates
+        let scrollTicking = false;
         window.addEventListener('scroll', () => {
-            updateScrollAnimation();
-            checkPanelVisibility();
-            updateCanvasFade();
+            if (!scrollTicking) {
+                requestAnimationFrame(() => {
+                    updateScrollAnimation();
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
+            }
         }, { passive: true });
 
         // Animation loop — uses rAF timestamp for smooth 120Hz ProMotion support
         function animate(timestamp) {
             requestAnimationFrame(animate);
 
-            // Smooth interpolation (lerp)
-            const lerpFactor = 0.07;
+            // Smooth interpolation — 0.1 for responsive tracking without jitter
+            const lerpFactor = 0.1;
 
             currentRotationY += (targetRotationY - currentRotationY) * lerpFactor;
             currentPositionX += (targetPositionX - currentPositionX) * lerpFactor;
