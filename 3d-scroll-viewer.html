@@ -6,7 +6,7 @@
     <title>Facegenics Midface Expander (FME) | Team Dental</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --ivory: #FAF9F6;
@@ -80,19 +80,7 @@
             background: rgba(255, 255, 255, 0.25);
         }
 
-        /* Noise texture overlay */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            opacity: 0.03;
-            pointer-events: none;
-            z-index: 10000;
-        }
+        /* Noise texture removed — 0.03 opacity was invisible but cost GPU paint every frame */
 
         /* Loading screen */
         #loading {
@@ -249,8 +237,9 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             cursor: pointer;
-            transition: none;
-            border-radius: 4px;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 6px;
             box-shadow: 0 4px 16px rgba(59, 130, 196, 0.25);
         }
 
@@ -375,19 +364,21 @@
 
         /* Content panels that slide in */
         .content-panel {
-            max-width: 450px;
+            max-width: 480px;
             opacity: 0;
-            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-            -webkit-transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            -webkit-transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
         .content-panel.from-left {
-            transform: translateX(-100px);
+            transform: translateX(-60px);
         }
 
         .content-panel.from-right {
-            transform: translateX(100px);
+            transform: translateX(60px);
             margin-left: auto;
             text-align: right;
         }
@@ -485,46 +476,47 @@
         }
 
         .content-panel h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(3rem, 6vw, 4.5rem);
-            font-weight: 600;
-            line-height: 1.05;
-            letter-spacing: -0.03em;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(3.2rem, 7vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.02;
+            letter-spacing: -0.045em;
             margin-bottom: 1.25rem;
         }
 
-        .content-panel h1 em {
-            font-style: italic;
-            color: var(--gold);
+        .content-panel h1 em,
+        .content-panel h2 em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .content-panel p {
-            font-size: 1rem;
-            line-height: 1.7;
+            font-size: 1.05rem;
+            line-height: 1.75;
             color: var(--ivory);
             margin-bottom: 1.5rem;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            opacity: 0.75;
+            font-weight: 400;
+            letter-spacing: 0.005em;
+            opacity: 0.7;
         }
 
         .content-panel h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.4rem, 5vw, 3.5rem);
-            font-weight: 600;
-            line-height: 1.1;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2.6rem, 5.5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -0.04em;
             margin-bottom: 1rem;
         }
 
-        .content-panel h2 em {
-            font-style: italic;
-            color: var(--gold);
-        }
-
         .content-panel h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
             margin-bottom: 1rem;
             color: var(--ivory);
         }
@@ -606,10 +598,11 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             font-weight: 700;
-            transition: none;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: none;
             cursor: pointer;
-            border-radius: 6px;
+            border-radius: 8px;
             box-shadow: 0 4px 16px rgba(59, 130, 196, 0.3);
             position: relative;
             overflow: hidden;
@@ -668,15 +661,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Inter', sans-serif;
             font-size: 1rem;
             color: var(--obsidian);
         }
 
         .doctor-mini-info h4 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Inter', sans-serif;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: -0.01em;
         }
 
         .doctor-mini-info span {
@@ -761,15 +755,23 @@
 
         .location-mini {
             padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
             font-size: 0.8rem;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .location-mini:hover {
+            border-color: rgba(74, 159, 212, 0.3);
+            background: rgba(74, 159, 212, 0.04);
         }
 
         .location-mini h5 {
             color: var(--team-blue);
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
             margin-bottom: 0.25rem;
         }
 
@@ -779,25 +781,37 @@
             font-weight: 500;
         }
 
+        .location-mini a {
+            color: var(--titanium);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .location-mini a:hover {
+            color: var(--team-blue);
+        }
+
         /* Download button */
         .download-model-btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             padding: 0.6rem 1.2rem;
-            border: 1px solid var(--gold);
+            border: 1px solid rgba(160, 203, 232, 0.3);
+            border-radius: 6px;
             color: var(--gold);
             text-decoration: none;
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .download-model-btn:hover {
             background: var(--gold);
             color: var(--obsidian);
+            border-color: var(--gold);
         }
 
         /* Footer */
@@ -933,21 +947,22 @@
 
             .content-panel.from-right { text-align: center; }
 
-            /* Typography — fluid clamp, no hard max-width on paragraphs */
+            /* Typography — fluid clamp, tighter tracking for Inter */
             .content-panel h1 {
-                font-size: clamp(2.2rem, 8.5vw, 3rem);
-                letter-spacing: -0.03em;
+                font-size: clamp(2.4rem, 9vw, 3.2rem);
+                letter-spacing: -0.04em;
                 margin-bottom: 1.25rem;
             }
 
             .content-panel h2 {
-                font-size: clamp(1.8rem, 7vw, 2.4rem);
-                letter-spacing: -0.02em;
+                font-size: clamp(2rem, 7.5vw, 2.6rem);
+                letter-spacing: -0.035em;
                 margin-bottom: 1rem;
             }
 
             .content-panel h3 {
-                font-size: clamp(1.4rem, 5.5vw, 1.8rem);
+                font-size: clamp(1.5rem, 5.5vw, 1.9rem);
+                letter-spacing: -0.02em;
                 margin-bottom: 0.75rem;
             }
 
@@ -1061,7 +1076,8 @@
                 font-weight: 600;
             }
 
-            .location-mini span {
+            .location-mini span,
+            .location-mini a {
                 color: var(--titanium);
                 font-size: 0.78rem;
             }
@@ -1135,11 +1151,11 @@
             }
 
             .content-panel h1 {
-                font-size: clamp(1.9rem, 8vw, 2.4rem);
+                font-size: clamp(2rem, 8.5vw, 2.6rem);
             }
 
             .content-panel h2 {
-                font-size: clamp(1.6rem, 7vw, 2rem);
+                font-size: clamp(1.7rem, 7vw, 2.2rem);
             }
 
             .locations-mini {
@@ -1300,7 +1316,7 @@
     <div class="scroll-container">
 
         <!-- Section 1: Hero - Left side -->
-        <section class="scroll-section section-hero" data-rotation="0">
+        <section class="scroll-section section-hero">
             <div class="content-panel from-left intro-hidden" id="heroPanel" data-animate>
                 <p class="hero-eyebrow">Introducing</p>
                 <h1>Facegenics<br>Midface <em>Expander</em></h1>
@@ -1315,7 +1331,7 @@
         </section>
 
         <!-- Section 2: Technology - Right side -->
-        <section class="scroll-section" data-rotation="90">
+        <section class="scroll-section">
             <div class="content-panel from-right" data-animate>
                 <div class="badge">Now Available</div>
                 <h2>FME 6-8-10<br><em>TAD System</em></h2>
@@ -1325,7 +1341,7 @@
         </section>
 
         <!-- Section 3: Benefits - Left side -->
-        <section class="scroll-section" id="benefits" data-rotation="180">
+        <section class="scroll-section" id="benefits">
             <div class="content-panel from-left" data-animate>
                 <h2>Transform<br>Your <em>Life</em></h2>
                 <ul class="benefits-list">
@@ -1339,7 +1355,7 @@
         </section>
 
         <!-- Section 4: Doctors - Centered -->
-        <section class="scroll-section section-doctors" id="doctors" data-rotation="270">
+        <section class="scroll-section section-doctors" id="doctors">
             <div class="content-panel from-left" data-animate>
                 <p class="hero-eyebrow" style="color: #C9A962;">Your Expert Team</p>
                 <h3 style="color: #C9A962;">Meet Your Doctors</h3>
@@ -1364,7 +1380,7 @@
         </section>
 
         <!-- Section 5: CTA - Center -->
-        <section class="scroll-section section-cta" id="consultation" data-rotation="360">
+        <section class="scroll-section section-cta" id="consultation">
             <div class="content-panel from-left" data-animate>
                 <p class="hero-eyebrow">Ready to Transform?</p>
                 <h2>Schedule Your<br><em>Consultation</em></h2>
@@ -1378,23 +1394,23 @@
                 <div class="locations-mini">
                     <div class="location-mini">
                         <h5>New York City</h5>
-                        <span>212-482-1212</span>
+                        <a href="tel:2124821212">212-482-1212</a>
                     </div>
                     <div class="location-mini">
                         <h5>Philadelphia</h5>
-                        <span>215-598-5100</span>
+                        <a href="tel:2155985100">215-598-5100</a>
                     </div>
                     <div class="location-mini">
                         <h5>Swedesboro</h5>
-                        <span>856-467-4677</span>
+                        <a href="tel:8564674677">856-467-4677</a>
                     </div>
                     <div class="location-mini">
                         <h5>Ponte Vedra</h5>
-                        <span>904-273-9115</span>
+                        <a href="tel:9042739115">904-273-9115</a>
                     </div>
                     <div class="location-mini">
                         <h5>Vermont</h5>
-                        <span>802-876-7803</span>
+                        <a href="tel:8028767803">802-876-7803</a>
                     </div>
                 </div>
             </div>
@@ -1749,10 +1765,8 @@
 
                 model.traverse((child) => {
                     if (child.isMesh && child.material) {
-                        // Log mesh info for debugging
                         const mat = child.material;
                         const c = mat.color;
-                        console.log(`Mesh: "${child.name}", Material: "${mat.name}", Color: r${c.r.toFixed(2)} g${c.g.toFixed(2)} b${c.b.toFixed(2)}, Metalness: ${mat.metalness}, Roughness: ${mat.roughness}`);
 
                         // Apply environment map to all
                         mat.envMap = envMap;
@@ -1834,8 +1848,10 @@
                 updateCanvasFade();
             },
             (progress) => {
-                const percent = (progress.loaded / progress.total * 100).toFixed(0);
-                document.querySelector('.loader-text').textContent = `Loading 3D Model ${percent}%`;
+                if (progress.total > 0) {
+                    const percent = (progress.loaded / progress.total * 100).toFixed(0);
+                    document.querySelector('.loader-text').textContent = `Loading 3D Model ${percent}%`;
+                }
             },
             (error) => {
                 console.error('Error loading model:', error);
@@ -1889,7 +1905,6 @@
         // Uses class toggle so CSS transition handles the animation
         // Same cubic-bezier + timing as the content panels popping in
         const doctorsSection = document.getElementById('doctors');
-        const ctaSection = document.getElementById('consultation');
         function updateCanvasFade() {
             if (!container.classList.contains('loaded')) return;
 
@@ -1913,41 +1928,30 @@
             updateCanvasFade();
         }, { passive: true });
 
-        // Animation loop
-        function animate() {
+        // Animation loop — uses rAF timestamp for smooth 120Hz ProMotion support
+        function animate(timestamp) {
             requestAnimationFrame(animate);
 
-            // Smooth interpolation for all properties (lerp factor controls smoothness)
-            const lerpFactor = 0.06; // Lower = smoother/slower, Higher = snappier
+            // Smooth interpolation (lerp)
+            const lerpFactor = 0.07;
 
-            // Smooth rotation interpolation (Y axis only - trophy spin)
             currentRotationY += (targetRotationY - currentRotationY) * lerpFactor;
-
-            // Smooth position interpolation
             currentPositionX += (targetPositionX - currentPositionX) * lerpFactor;
             currentPositionY += (targetPositionY - currentPositionY) * lerpFactor;
-
-            // Smooth zoom interpolation
             currentZoom += (targetZoom - currentZoom) * lerpFactor;
 
-            // Model is pre-rotated to stand upright
-            // pivotGroup spins on world Y axis (trophy spin around vertical)
             pivotGroup.rotation.y = currentRotationY;
-
-            // Apply position (model moves around the viewport)
             flipGroup.position.x = currentPositionX;
-
-            // Apply zoom (camera distance)
             camera.position.z = currentZoom;
 
-            // Subtle floating animation layered on top
-            const time = Date.now() * 0.001;
-            flipGroup.position.y = currentPositionY + Math.sin(time * 0.8) * 0.015;
+            // Subtle floating — rAF timestamp for frame-rate independent animation
+            const time = (timestamp || 0) * 0.001;
+            flipGroup.position.y = currentPositionY + Math.sin(time * 0.8) * 0.012;
 
             renderer.render(scene, camera);
         }
 
-        animate();
+        requestAnimationFrame(animate);
 
         // Handle resize — debounced for Safari performance
         let resizeTimeout;
