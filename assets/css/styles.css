@@ -994,38 +994,41 @@ footer {
 }
 
 .location-preview-card {
-    padding: 2rem 1rem;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px;
+    padding: 2rem 1rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
     text-decoration: none;
     text-align: center;
-    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
     position: relative;
     overflow: hidden;
     background-image: var(--loc-bg);
     background-size: cover;
     background-position: center;
-    min-height: 180px;
+    min-height: 210px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: flex-end;
+    gap: 2px;
 }
 
 .location-preview-card::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(13,13,13,0.75) 0%, rgba(13,13,13,0.25) 100%);
-    transition: background 0.3s ease;
+    background: linear-gradient(to top, rgba(13,13,13,0.85) 0%, rgba(13,13,13,0.4) 50%, rgba(13,13,13,0.2) 100%);
+    transition: background 0.4s ease;
 }
 
 .location-preview-card:hover::before {
-    background: linear-gradient(to top, rgba(13,13,13,0.6) 0%, rgba(13,13,13,0.1) 100%);
+    background: linear-gradient(to top, rgba(13,13,13,0.7) 0%, rgba(13,13,13,0.2) 50%, rgba(13,13,13,0.05) 100%);
 }
 
 .location-preview-card:hover {
-    border-color: rgba(74,159,212,0.3);
-    transform: translateY(-4px);
+    border-color: rgba(74,159,212,0.35);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.35), 0 0 20px rgba(74,159,212,0.08);
 }
 
 .location-preview-card > * {
@@ -1033,16 +1036,62 @@ footer {
     z-index: 1;
 }
 
-.location-preview-card h4 {
-    font-size: 1.1rem;
-    font-weight: 700;
+/* Pin icon */
+.loc-pin {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.loc-pin svg {
+    width: 20px;
+    height: 20px;
     color: var(--team-blue);
-    margin-bottom: 0.3rem;
+    filter: drop-shadow(0 0 6px rgba(74,159,212,0.4));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.location-preview-card:hover .loc-pin svg {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 10px rgba(74,159,212,0.6));
+}
+
+.loc-pin-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(74,159,212,0.2);
+    animation: locPinPulse 2.8s ease-out infinite;
+}
+
+@keyframes locPinPulse {
+    0%   { transform: scale(0.6); opacity: 0.8; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.location-preview-card h4 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--ivory);
+    margin-bottom: 0.2rem;
+    letter-spacing: -0.01em;
+    transition: color 0.3s ease;
+}
+
+.location-preview-card:hover h4 {
+    color: var(--team-blue-light);
 }
 
 .location-preview-card span {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--titanium);
+    font-weight: 500;
+    letter-spacing: 0.02em;
 }
 
 /* Home Why Choose Us */
