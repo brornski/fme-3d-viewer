@@ -655,6 +655,8 @@ footer {
     padding: 8rem 5% 4rem;
     position: relative;
     overflow: hidden;
+    background: url('../video/hero-poster.jpg') center/cover no-repeat;
+    background-color: var(--obsidian);
 }
 
 .hero-video {
@@ -686,10 +688,10 @@ footer {
     inset: 0;
     background: linear-gradient(
         to bottom,
-        rgba(13,13,13,0.55) 0%,
-        rgba(13,13,13,0.35) 40%,
-        rgba(13,13,13,0.45) 70%,
-        rgba(13,13,13,0.85) 100%
+        rgba(13,13,13,0.45) 0%,
+        rgba(13,13,13,0.25) 40%,
+        rgba(13,13,13,0.35) 70%,
+        rgba(13,13,13,0.8) 100%
     );
     z-index: 1;
 }
@@ -1017,12 +1019,12 @@ footer {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(13,13,13,0.85) 0%, rgba(13,13,13,0.4) 50%, rgba(13,13,13,0.2) 100%);
+    background: linear-gradient(to top, rgba(13,13,13,0.8) 0%, rgba(13,13,13,0.35) 40%, rgba(13,13,13,0.15) 100%);
     transition: background 0.4s ease;
 }
 
 .location-preview-card:hover::before {
-    background: linear-gradient(to top, rgba(13,13,13,0.7) 0%, rgba(13,13,13,0.2) 50%, rgba(13,13,13,0.05) 100%);
+    background: linear-gradient(to top, rgba(13,13,13,0.65) 0%, rgba(13,13,13,0.15) 40%, rgba(13,13,13,0.0) 100%);
 }
 
 .location-preview-card:hover {

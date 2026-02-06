@@ -381,24 +381,36 @@
 
     <script src="assets/js/nav.js" defer></script>
     <script>
-    // Force-play hero video (Brave and some browsers block autoplay)
+    // Force-play hero video — aggressive for Brave/browsers that block autoplay
     (function() {
         var v = document.querySelector('.hero-video');
         if (!v) return;
+        var playing = false;
+
         function tryPlay() {
+            if (playing) return;
             var p = v.play();
-            if (p && p.catch) p.catch(function() {
-                // Autoplay blocked — try again on first user interaction
-                ['click','touchstart','scroll'].forEach(function(evt) {
-                    document.addEventListener(evt, function handler() {
-                        v.play();
-                        document.removeEventListener(evt, handler);
-                    }, { once: true, passive: true });
-                });
-            });
+            if (p && p.then) {
+                p.then(function() { playing = true; }).catch(function() {});
+            }
         }
-        if (v.readyState >= 2) tryPlay();
-        else v.addEventListener('canplay', tryPlay);
+
+        // Try immediately, after 500ms, and after 1500ms
+        tryPlay();
+        setTimeout(tryPlay, 500);
+        setTimeout(tryPlay, 1500);
+
+        // Try on canplay event
+        v.addEventListener('canplay', tryPlay);
+        v.addEventListener('loadeddata', tryPlay);
+
+        // Try on ANY user interaction (Brave requires gesture)
+        ['click','touchstart','scroll','mousemove','keydown'].forEach(function(evt) {
+            document.addEventListener(evt, function handler() {
+                tryPlay();
+                if (playing) document.removeEventListener(evt, handler);
+            }, { passive: true });
+        });
     })();
     </script>
 </body>
