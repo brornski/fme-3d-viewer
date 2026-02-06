@@ -1004,7 +1004,6 @@ footer {
     transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
     position: relative;
     overflow: hidden;
-    background-image: var(--loc-bg);
     background-size: cover;
     background-position: center;
     min-height: 210px;
@@ -1625,7 +1624,6 @@ footer {
     transition: border-color 0.3s ease, background 0.3s ease;
     position: relative;
     overflow: hidden;
-    background-image: var(--loc-bg);
     background-size: cover;
     background-position: center;
 }
