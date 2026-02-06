@@ -686,10 +686,10 @@ footer {
     inset: 0;
     background: linear-gradient(
         to bottom,
-        rgba(13,13,13,0.7) 0%,
-        rgba(13,13,13,0.5) 40%,
-        rgba(13,13,13,0.6) 70%,
-        rgba(13,13,13,0.9) 100%
+        rgba(13,13,13,0.55) 0%,
+        rgba(13,13,13,0.35) 40%,
+        rgba(13,13,13,0.45) 70%,
+        rgba(13,13,13,0.85) 100%
     );
     z-index: 1;
 }

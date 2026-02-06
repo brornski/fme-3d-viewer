@@ -42,7 +42,7 @@
 
     <!-- Hero -->
     <section class="home-hero">
-        <video class="hero-video" autoplay muted loop playsinline disablePictureInPicture>
+        <video class="hero-video" autoplay muted loop playsinline disablePictureInPicture poster="assets/video/hero-poster.jpg">
             <source src="assets/video/hero-bg.mp4" type="video/mp4">
         </video>
         <div class="hero-video-overlay"></div>
@@ -375,5 +375,26 @@
     </footer>
 
     <script src="assets/js/nav.js" defer></script>
+    <script>
+    // Force-play hero video (Brave and some browsers block autoplay)
+    (function() {
+        var v = document.querySelector('.hero-video');
+        if (!v) return;
+        function tryPlay() {
+            var p = v.play();
+            if (p && p.catch) p.catch(function() {
+                // Autoplay blocked — try again on first user interaction
+                ['click','touchstart','scroll'].forEach(function(evt) {
+                    document.addEventListener(evt, function handler() {
+                        v.play();
+                        document.removeEventListener(evt, handler);
+                    }, { once: true, passive: true });
+                });
+            });
+        }
+        if (v.readyState >= 2) tryPlay();
+        else v.addEventListener('canplay', tryPlay);
+    })();
+    </script>
 </body>
 </html>
