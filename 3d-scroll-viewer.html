@@ -6,7 +6,7 @@
     <title>Facegenics Midface Expander (FME) | Team Dental</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --ivory: #FAF9F6;
@@ -28,7 +28,6 @@
         }
 
         html {
-            scroll-behavior: smooth;
             overscroll-behavior: none;
             -webkit-overscroll-behavior: none;
         }
@@ -38,7 +37,7 @@
             background: var(--obsidian);
             color: var(--ivory);
             overflow-x: hidden;
-            font-weight: 500;
+            font-weight: 400;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
@@ -180,9 +179,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: linear-gradient(to bottom, rgba(13, 13, 13, 0.95) 0%, transparent 100%);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: linear-gradient(to bottom, rgba(13, 13, 13, 0.97) 0%, rgba(13, 13, 13, 0.8) 60%, transparent 100%);
         }
 
         .nav-logo {
@@ -337,13 +334,12 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 350px;
-            height: 350px;
+            width: 500px;
+            height: 500px;
             transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 40%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 30%, transparent 60%);
             border-radius: 50%;
             pointer-events: none;
-            filter: blur(40px);
         }
 
         /* Scroll container - creates scroll height */
@@ -360,7 +356,6 @@
             align-items: center;
             padding: 0 8%;
             position: relative;
-            will-change: transform;
         }
 
         /* Content panels that slide in */
@@ -371,7 +366,6 @@
                         transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
             -webkit-transition: opacity 0.8s cubic-bezier(0.33, 1, 0.68, 1),
                                 transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
-            will-change: opacity, transform;
         }
 
         .content-panel.from-left {
@@ -898,9 +892,7 @@
                 padding-top: max(1rem, env(safe-area-inset-top));
                 padding-left: max(1.5rem, env(safe-area-inset-left));
                 padding-right: max(1.5rem, env(safe-area-inset-right));
-                background: rgba(13, 13, 13, 0.92);
-                backdrop-filter: blur(20px) saturate(180%);
-                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                background: rgba(13, 13, 13, 0.97);
             }
 
             .nav-links { display: none; }
@@ -1107,8 +1099,8 @@
             /* Model glow — repositioned for upper viewport */
             #model-glow {
                 top: 28%;
-                width: 200px;
-                height: 200px;
+                width: 300px;
+                height: 300px;
             }
 
             /* Footer — safe area bottom padding */
@@ -1266,8 +1258,8 @@
             .location-mini span { font-size: 0.75rem; }
 
             #model-glow {
-                width: 280px;
-                height: 280px;
+                width: 380px;
+                height: 380px;
             }
 
             footer {
@@ -1471,6 +1463,10 @@
         const panels = document.querySelectorAll('[data-animate]');
         const scrollIndicator = document.getElementById('scrollIndicator');
 
+        // Detect device type — used for renderer quality and keyframe selection
+        const isMobile = window.innerWidth <= 768;
+        const isTablet = window.innerWidth > 768 && window.innerWidth <= 1199;
+
         // Scene setup
         const scene = new THREE.Scene();
 
@@ -1478,22 +1474,20 @@
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 0.3, 3.5);
 
-        // Renderer - HIGH QUALITY settings
+        // Renderer — lean settings, no shadows (none configured), capped pixel ratio
+        const maxDPR = isMobile ? 1.5 : Math.min(window.devicePixelRatio, 2);
         const renderer = new THREE.WebGLRenderer({
-            antialias: true,
+            antialias: !isMobile, // skip AA on mobile for perf
             alpha: true,
             powerPreference: 'high-performance',
-            precision: 'highp',
             stencil: false,
             depth: true
         });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setPixelRatio(maxDPR);
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1.4;
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
 
         // Handle WebGL context loss gracefully (prevents crash→reload loop)
@@ -1511,7 +1505,7 @@
 
         // Create custom environment
         const envScene = new THREE.Scene();
-        const envGeo = new THREE.SphereGeometry(50, 64, 64);
+        const envGeo = new THREE.SphereGeometry(50, 32, 32);
         const envMat = new THREE.ShaderMaterial({
             side: THREE.BackSide,
             uniforms: {
@@ -1551,7 +1545,7 @@
         const envMesh = new THREE.Mesh(envGeo, envMat);
         envScene.add(envMesh);
 
-        const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(512);
+        const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(256);
         const cubeCamera = new THREE.CubeCamera(0.1, 100, cubeRenderTarget);
         cubeCamera.update(renderer, envScene);
         const envMap = pmremGenerator.fromCubemap(cubeRenderTarget.texture).texture;
@@ -1595,10 +1589,6 @@
         pivotGroup.add(modelGroup);
         flipGroup.add(pivotGroup);
         scene.add(flipGroup);
-
-        // Detect device type
-        const isMobile = window.innerWidth <= 768;
-        const isTablet = window.innerWidth > 768 && window.innerWidth <= 1199;
 
         // Target rotations (controlled by scroll)
         // Model is pre-rotated to stand upright, so only Y rotation needed for spinning
@@ -1776,10 +1766,7 @@
                         const mat = child.material;
                         const c = mat.color;
 
-                        // Apply environment map to all
                         mat.envMap = envMap;
-                        child.castShadow = true;
-                        child.receiveShadow = true;
 
                         // Classify material by color to apply correct finish
                         const r = c.r, g = c.g, b = c.b;
@@ -1825,31 +1812,27 @@
                 modelGroup.rotation.x = -Math.PI * 0.5; // Stand upright
                 document.getElementById('loading').classList.add('hidden');
 
-                // Cinematic intro sequence - choreographed timing
+                // Cinematic intro — tight sequencing for fast perceived load
                 const navEl = document.getElementById('mainNav');
                 const heroEl = document.getElementById('heroPanel');
 
-                // 1. 3D model scales and fades in (0.3s delay)
-                setTimeout(() => {
-                    container.classList.add('loaded');
-                }, 300);
+                // 1. Model fades in immediately
+                setTimeout(() => { container.classList.add('loaded'); }, 100);
 
-                // 2. Nav drops down from top (0.8s delay)
+                // 2. Nav drops in (0.4s)
                 setTimeout(() => {
                     navEl.classList.remove('intro-hidden', 'intro-from-top');
                     navEl.classList.add('intro-visible');
-                }, 800);
+                }, 400);
 
-                // 3. Hero content rises into place (1.2s delay)
+                // 3. Hero content rises into place (0.7s)
                 setTimeout(() => {
                     heroEl.classList.remove('intro-hidden');
                     heroEl.classList.add('intro-visible', 'visible');
-                }, 1200);
+                }, 700);
 
-                // 4. Scroll indicator appears last (2.0s delay)
-                setTimeout(() => {
-                    scrollIndicator.classList.add('intro-ready');
-                }, 2000);
+                // 4. Scroll indicator (1.4s)
+                setTimeout(() => { scrollIndicator.classList.add('intro-ready'); }, 1400);
 
                 // Initial scroll position + panel visibility check
                 updateScrollAnimation();
@@ -1891,42 +1874,44 @@
         }
 
         // Scroll-driven panel visibility + parallax
-        // Replaces IntersectionObserver with scroll-linked approach for smooth progressive reveals
-        const vh = window.innerHeight;
         const doctorsSection = document.getElementById('doctors');
+        let modelHidden = false; // tracks exit state to skip GPU renders
 
         function updatePanelsAndParallax() {
             const viewH = window.innerHeight;
 
-            // Panel visibility — generous thresholds for early reveal
+            // Panel visibility — guard classList to avoid redundant style recalc
             panels.forEach(panel => {
                 const rect = panel.getBoundingClientRect();
-                const isVisible = rect.top < viewH * 0.92 && rect.bottom > viewH * 0.08;
+                const inView = rect.top < viewH * 0.92 && rect.bottom > viewH * 0.08;
+                const hasVisible = panel.classList.contains('visible');
 
-                if (isVisible) {
+                if (inView && !hasVisible) {
                     panel.classList.add('visible');
-                } else if (rect.top > viewH || rect.bottom < 0) {
+                } else if (!inView && hasVisible && (rect.top > viewH || rect.bottom < 0)) {
                     panel.classList.remove('visible');
                 }
             });
 
-            // Parallax — subtle depth offset on each section based on viewport position
+            // Parallax — subtle depth offset, translateZ(0) for GPU compositing
             sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
-                const sectionCenter = rect.top + rect.height * 0.5;
-                const offset = (sectionCenter - viewH * 0.5) / viewH;
-                // Parallax: content drifts 20px opposite to scroll direction, creating depth
-                const parallaxY = offset * -20;
-                section.style.transform = `translateY(${parallaxY}px) translateZ(0)`;
+                const offset = (rect.top + rect.height * 0.5 - viewH * 0.5) / viewH;
+                section.style.transform = `translateY(${offset * -20}px) translateZ(0)`;
             });
 
             // Canvas fade — model exits before doctors section
             if (container.classList.contains('loaded') && doctorsSection) {
-                const dRect = doctorsSection.getBoundingClientRect();
-                if (dRect.top < viewH * 0.4) {
+                const dTop = doctorsSection.getBoundingClientRect().top;
+                const shouldExit = dTop < viewH * 0.4;
+                const hasExit = container.classList.contains('exit');
+                if (shouldExit && !hasExit) {
                     container.classList.add('exit');
-                } else {
+                    // After CSS transition completes, mark model hidden to skip renders
+                    setTimeout(() => { modelHidden = true; }, 900);
+                } else if (!shouldExit && hasExit) {
                     container.classList.remove('exit');
+                    modelHidden = false;
                 }
             }
         }
@@ -1944,16 +1929,15 @@
             }
         }, { passive: true });
 
-        // Animation loop — delta-time lerp for consistent speed across 60/120Hz
+        // Animation loop — delta-time lerp, skips GPU render when model invisible
         let lastTimestamp = 0;
         function animate(timestamp) {
             requestAnimationFrame(animate);
 
-            // Delta-time lerp — consistent motion regardless of frame rate
-            const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.05); // cap at 50ms
+            // Delta-time exponential lerp — consistent across 60/120Hz
+            const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.05);
             lastTimestamp = timestamp;
-            const lerpSpeed = 8; // Higher = snappier response
-            const lerpFactor = 1 - Math.exp(-lerpSpeed * dt);
+            const lerpFactor = 1 - Math.exp(-8 * dt);
 
             currentRotationY += (targetRotationY - currentRotationY) * lerpFactor;
             currentPositionX += (targetPositionX - currentPositionX) * lerpFactor;
@@ -1964,11 +1948,14 @@
             flipGroup.position.x = currentPositionX;
             camera.position.z = currentZoom;
 
-            // Subtle floating — rAF timestamp for frame-rate independent animation
+            // Subtle floating
             const time = (timestamp || 0) * 0.001;
             flipGroup.position.y = currentPositionY + Math.sin(time * 0.8) * 0.012;
 
-            renderer.render(scene, camera);
+            // Skip GPU render when model is fully faded out — massive perf savings
+            if (!modelHidden) {
+                renderer.render(scene, camera);
+            }
         }
 
         requestAnimationFrame(animate);
@@ -1981,7 +1968,7 @@
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                renderer.setPixelRatio(maxDPR);
             }, 100);
         });
     </script>
