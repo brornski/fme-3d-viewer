@@ -2224,6 +2224,10 @@ footer {
     object-fit: cover;
 }
 
+#dr-jaffari .doctor-bio-img img {
+    object-position: center 15%;
+}
+
 .doctor-bio-text h2 {
     margin-bottom: 1rem;
 }
