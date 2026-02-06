@@ -3,266 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Facegenics Midface Expander (FME) | Team Dental</title>
+    <title>Team Dental | The Future of Dentistry</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
-    <div id="loading">
-        <div class="loader-wrap">
-            <div class="loader-logo"><img src="assets/images/team-dental-logo.png" alt="Team Dental" class="loader-logo-img"></div>
-            <div class="loader"></div>
-            <p class="loader-text">Loading 3D Model</p>
-        </div>
-    </div>
+<body class="page-home">
 
-    <nav class="intro-hidden intro-from-top" id="mainNav">
-        <a href="#" class="nav-logo">
-            <div class="nav-logo-box"><img src="assets/images/team-dental-logo.png" alt="Team Dental" class="nav-logo-img"></div>
+    <!-- Shared Nav -->
+    <nav id="mainNav">
+        <a href="index.html" class="nav-logo">
+            <img src="assets/images/teamdental_text_logo_white.png" alt="Team Dental" class="nav-logo-img">
         </a>
         <ul class="nav-links">
-            <li><a href="#benefits">Benefits</a></li>
-            <li><a href="#doctors">Doctors</a></li>
-            <li><a href="#consultation">Book Now</a></li>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="services.html" class="nav-link">Services</a></li>
+            <li><a href="fme.html" class="nav-link nav-link-fme">FME</a></li>
+            <li><a href="locations.html" class="nav-link">Locations</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
         </ul>
-        <button class="nav-cta" onclick="document.getElementById('consultation').scrollIntoView({behavior: 'smooth'})">Book Now</button>
+        <a href="contact.html" class="nav-cta">Book Now</a>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
-
-    <!-- Fixed 3D Canvas -->
-    <div id="canvas-container">
-        <div id="model-glow"></div>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <a href="services.html" class="mobile-nav-link">Services</a>
+        <a href="fme.html" class="mobile-nav-link mobile-nav-link-fme">FME</a>
+        <a href="locations.html" class="mobile-nav-link">Locations</a>
+        <a href="contact.html" class="mobile-nav-link">Contact</a>
+        <a href="contact.html" class="nav-cta mobile-cta">Book Now</a>
     </div>
 
-    <!-- Scroll indicator -->
-    <div class="scroll-indicator" id="scrollIndicator">
-        <span>Scroll to explore</span>
-        <div class="scroll-arrow"></div>
-    </div>
-
-    <!-- Scroll-driven content sections -->
-    <div class="scroll-container">
-
-        <!-- Section 1: Hero - Left side -->
-        <section class="scroll-section section-hero">
-            <div class="content-panel from-left intro-hidden" id="heroPanel" data-animate>
-                <p class="hero-eyebrow">Introducing</p>
-                <h1>Facegenics<br>Midface <em>Expander</em></h1>
-                <p>Revolutionary non-surgical palate expansion for adults. Experience the future of facial aesthetics.</p>
-                <a href="https://teamdental.com/fme" class="cta-button">
-                    Book Your Consult
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+    <!-- Hero -->
+    <section class="home-hero">
+        <div class="home-hero-inner" data-animate>
+            <p class="hero-eyebrow">Team Dental</p>
+            <h1>The Future of <em>Dentistry</em></h1>
+            <p class="home-hero-sub">Pioneering airway orthodontics, implant solutions, and smile transformations across 5 locations.</p>
+            <div class="home-hero-ctas">
+                <a href="fme.html" class="cta-button">
+                    Explore the FME
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="contact.html" class="cta-button cta-secondary">
+                    Book Appointment
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Section 2: Technology - Right side (pinned, scroll-driven reveals) -->
-        <section class="scroll-section section-pinned" style="height: 250vh;">
-            <div class="pin-wrap">
-                <div class="content-panel from-right">
-                    <div class="badge" data-reveal>Now Available</div>
-                    <h2 data-reveal>FME 6-8-10<br><em>TAD System</em></h2>
-                    <p data-reveal>Featuring Temporary Anchorage Devices for enhanced precision and predictable results. Our proprietary design delivers controlled expansion with maximum comfort.</p>
-                    <p data-reveal style="color: var(--gold); font-size: 0.85rem;">Protraction system coming soon.</p>
-                </div>
+    <!-- FME Spotlight -->
+    <section class="home-spotlight">
+        <div class="home-spotlight-inner" data-animate>
+            <div class="home-spotlight-image">
+                <img src="assets/images/fme-device.webp" alt="Facegenics Midface Expander" loading="lazy">
+                <div class="spotlight-glow"></div>
             </div>
-        </section>
-
-        <!-- Section 3: Benefits - Left side (pinned, each bullet reveals on scroll) -->
-        <section class="scroll-section section-pinned" id="benefits" style="height: 350vh;">
-            <div class="pin-wrap">
-                <div class="content-panel from-left">
-                    <h2 data-reveal>Transform<br>Your <em>Life</em></h2>
-                    <ul class="benefits-list">
-                        <li data-reveal>Wider, Fuller Smile</li>
-                        <li data-reveal>Improved Nasal Breathing</li>
-                        <li data-reveal>Relief from TMJ & Snoring</li>
-                        <li data-reveal>Non-Surgical Treatment</li>
-                        <li data-reveal>Custom-Engineered Design</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 4: What Helps vs What Hurts - Centered -->
-        <section class="scroll-section section-compare" id="compare">
-            <div class="content-panel from-left" data-animate>
-                <p class="hero-eyebrow">A Simple Comparison</p>
-                <h3>What Helps vs What Hurts</h3>
-                <p>Every case is different, but the patterns are familiar.</p>
-
-                <div class="compare-grid">
-                    <div class="compare-col compare-good">
-                        <h4>What Helps</h4>
-                        <ul>
-                            <li>
-                                <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path d="M20 6 9 17l-5-5" />
-                                </svg>
-                                May improve nasal breathing
-                            </li>
-                            <li>
-                                <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path d="M20 6 9 17l-5-5" />
-                                </svg>
-                                Supports a healthier airway
-                            </li>
-                            <li>
-                                <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path d="M20 6 9 17l-5-5" />
-                                </svg>
-                                Can reduce jaw tension
-                            </li>
-                            <li>
-                                <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path d="M20 6 9 17l-5-5" />
-                                </svg>
-                                Better sleep quality over time
-                            </li>
-                        </ul>
+            <div class="home-spotlight-text">
+                <p class="hero-eyebrow">Flagship Product</p>
+                <h2>Facegenics Midface <em>Expander</em></h2>
+                <p>Revolutionary non-surgical palate expansion for adults.</p>
+                <div class="spotlight-stats">
+                    <div class="spotlight-stat">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Success Rate</span>
                     </div>
-
-                    <div class="compare-col compare-bad">
-                        <h4>What Hurts</h4>
-                        <ul>
-                            <li>
-                                <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path d="M18 6 6 18M6 6l12 12" />
-                                </svg>
-                                Grinding and clenching as compensation
-                            </li>
-                            <li>
-                                <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path d="M18 6 6 18M6 6l12 12" />
-                                </svg>
-                                Ongoing jaw discomfort
-                            </li>
-                            <li>
-                                <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path d="M18 6 6 18M6 6l12 12" />
-                                </svg>
-                                Worsening sleep disruption
-                            </li>
-                            <li>
-                                <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path d="M18 6 6 18M6 6l12 12" />
-                                </svg>
-                                Headaches and daytime fatigue
-                            </li>
-                        </ul>
+                    <div class="spotlight-stat">
+                        <span class="stat-number">1,000+</span>
+                        <span class="stat-label">Installs</span>
+                    </div>
+                    <div class="spotlight-stat">
+                        <span class="stat-number">#1</span>
+                        <span class="stat-label">FME Provider</span>
                     </div>
                 </div>
-
-                <p class="compare-disclaimer">*General information only. Your doctor will review diagnosis, options, and expected outcomes for your case.</p>
+                <a href="fme.html" class="cta-link">Learn more &rarr;</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Section 5: Doctors - Centered -->
-        <section class="scroll-section section-doctors" id="doctors">
-            <div class="content-panel from-left" data-animate>
-                <p class="hero-eyebrow" style="color: #C9A962;">Your Expert Team</p>
-                <h3 style="color: #C9A962;">Meet Your Doctors</h3>
-                <p>Our dynamic doctor duo brings an unrivaled combination of specialized knowledge and experience.</p>
-                <div class="doctors-inline">
-                    <div class="doctor-mini">
-                        <div class="doctor-mini-avatar">
-                            <img src="assets/images/dr-jaffari.jpg" alt="Dr. Murtuza Jaffari" loading="lazy">
-                        </div>
-                        <div class="doctor-mini-info">
-                            <h4>Dr. Murtuza Jaffari</h4>
-                            <span>FME Specialist</span>
-                        </div>
-                    </div>
-                    <div class="doctor-mini">
-                        <div class="doctor-mini-avatar">
-                            <img src="assets/images/dr-newaz.jpg" alt="Dr. Zubad Newaz" loading="lazy">
-                        </div>
-                        <div class="doctor-mini-info">
-                            <h4>Dr. Zubad Newaz</h4>
-                            <span>FME Specialist</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 6: CTA - Center -->
-        <section class="scroll-section section-cta" id="consultation">
-            <div class="content-panel from-left" data-animate>
-                <p class="hero-eyebrow">Ready to Transform?</p>
-                <h2>Schedule Your<br><em>Consultation</em></h2>
-                <p>There is no one-size-fits-all treatment. Receive a thorough, custom evaluation to know the full range of treatment options for your situation.</p>
-                <a href="https://teamdental.com/fme" class="cta-button" style="margin-bottom: 2rem;">
-                    Book Consultation
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
+    <!-- Treatment Solutions -->
+    <section class="home-treatments">
+        <div class="section-inner" data-animate>
+            <p class="hero-eyebrow">What We Do</p>
+            <h2>Treatment <em>Solutions</em></h2>
+            <div class="treatments-grid">
+                <a href="fme.html" class="treatment-card treatment-card-featured">
+                    <div class="treatment-icon"><img src="assets/images/fme-device.webp" alt="FME" loading="lazy"></div>
+                    <h4>FME</h4>
+                    <p>Non-surgical palate expansion for adults with our flagship device.</p>
+                    <span class="cta-link">Learn more &rarr;</span>
                 </a>
-                <div class="locations-mini">
-                    <div class="location-mini" style="--loc-bg: url('assets/images/loc-nyc.png');">
-                        <h5>New York City</h5>
-                        <a href="tel:2124821212">212-482-1212</a>
-                    </div>
-                    <div class="location-mini" style="--loc-bg: url('assets/images/loc-philly.jpg');">
-                        <h5>Philadelphia</h5>
-                        <a href="tel:2155985100">215-598-5100</a>
-                    </div>
-                    <div class="location-mini" style="--loc-bg: url('assets/images/loc-swedesboro.jpg');">
-                        <h5>Swedesboro</h5>
-                        <a href="tel:8564674677">856-467-4677</a>
-                    </div>
-                    <div class="location-mini" style="--loc-bg: url('assets/images/loc-ponte-vedra.png');">
-                        <h5>Ponte Vedra</h5>
-                        <a href="tel:9042739115">904-273-9115</a>
-                    </div>
-                    <div class="location-mini" style="--loc-bg: url('assets/images/loc-vermont.jpg');">
-                        <h5>Vermont</h5>
-                        <a href="tel:8028767803">802-876-7803</a>
-                    </div>
+                <a href="services.html" class="treatment-card">
+                    <div class="treatment-icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                    <h4>Custom MARPE</h4>
+                    <p>Custom-fitted expander tailored to your unique palatal anatomy.</p>
+                    <span class="cta-link">Learn more &rarr;</span>
+                </a>
+                <a href="services.html" class="treatment-card">
+                    <div class="treatment-icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+                    <h4>Invisalign</h4>
+                    <p>Transform your smile discreetly with clear aligners.</p>
+                    <span class="cta-link">Learn more &rarr;</span>
+                </a>
+                <a href="services.html" class="treatment-card">
+                    <div class="treatment-icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/></svg></div>
+                    <h4>Dental Implants</h4>
+                    <p>Long-lasting implant solutions including All-on-X.</p>
+                    <span class="cta-link">Learn more &rarr;</span>
+                </a>
+                <a href="services.html" class="treatment-card">
+                    <div class="treatment-icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c-4.97 0-9 2.69-9 6v6c0 3.31 4.03 6 9 6s9-2.69 9-6V9c0-3.31-4.03-6-9-6z"/></svg></div>
+                    <h4>Cosmetic Dentistry</h4>
+                    <p>Veneers, whitening, and full smile makeovers.</p>
+                    <span class="cta-link">Learn more &rarr;</span>
+                </a>
+                <a href="services.html" class="treatment-card">
+                    <div class="treatment-icon-svg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+                    <h4>Cleanings & Checkups</h4>
+                    <p>Comprehensive wellness checks and gentle cleanings.</p>
+                    <span class="cta-link">Learn more &rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="home-stats">
+        <div class="stats-bar" data-animate>
+            <div class="stat-item">
+                <span class="stat-number" data-count="3200" data-suffix="+">0</span>
+                <span class="stat-label">Smiles Changed</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Locations</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">95%</span>
+                <span class="stat-label">Success Rate</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-prefix="#" data-count="1">0</span>
+                <span class="stat-label">FME Provider</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Doctors -->
+    <section class="home-doctors">
+        <div class="section-inner" data-animate>
+            <p class="hero-eyebrow" style="color: #C9A962;">Your Expert Team</p>
+            <h2 style="color: #C9A962;">Meet the <em>Doctors</em></h2>
+            <div class="doctors-preview">
+                <div class="doctor-preview-card">
+                    <div class="doctor-preview-img"><img src="assets/images/dr-jaffari.jpg" alt="Dr. M. Jaffari" loading="lazy"></div>
+                    <h4>Dr. M. Jaffari, DDS</h4>
+                    <span>FAGD, FICOI, FAACA</span>
+                    <p>University of Michigan graduate. Fellow of Academy of General Dentistry. Specializes in implants, Invisalign, and full mouth rehabilitation.</p>
+                </div>
+                <div class="doctor-preview-card">
+                    <div class="doctor-preview-img"><img src="assets/images/dr-newaz.jpg" alt="Dr. Zubad Newaz" loading="lazy"></div>
+                    <h4>Dr. Zubad Newaz</h4>
+                    <span>Orthodontics & Oral Radiology</span>
+                    <p>Dual specialist. NYU-Langone and University of Florida trained. Focus on airway-centered orthodontics and whole-body wellness.</p>
                 </div>
             </div>
-        </section>
+            <a href="about.html" class="cta-link">Meet the team &rarr;</a>
+        </div>
+    </section>
 
-    </div>
+    <!-- Locations Preview -->
+    <section class="home-locations">
+        <div class="section-inner" data-animate>
+            <p class="hero-eyebrow">Find Your Office</p>
+            <h2>Our <em>Locations</em></h2>
+            <div class="locations-preview-grid">
+                <a href="locations.html" class="location-preview-card" style="--loc-bg: url('assets/images/loc-nyc.png');">
+                    <h4>New York City</h4>
+                    <span>212-482-1212</span>
+                </a>
+                <a href="locations.html" class="location-preview-card" style="--loc-bg: url('assets/images/loc-philly.jpg');">
+                    <h4>Philadelphia</h4>
+                    <span>215-598-5100</span>
+                </a>
+                <a href="locations.html" class="location-preview-card" style="--loc-bg: url('assets/images/loc-swedesboro.jpg');">
+                    <h4>Swedesboro</h4>
+                    <span>856-467-4677</span>
+                </a>
+                <a href="locations.html" class="location-preview-card" style="--loc-bg: url('assets/images/loc-ponte-vedra.png');">
+                    <h4>Ponte Vedra</h4>
+                    <span>904-273-9115</span>
+                </a>
+                <a href="locations.html" class="location-preview-card" style="--loc-bg: url('assets/images/loc-vermont.jpg');">
+                    <h4>Vermont</h4>
+                    <span>802-876-7803</span>
+                </a>
+            </div>
+            <a href="locations.html" class="cta-link">View all locations &rarr;</a>
+        </div>
+    </section>
 
-    <!-- Footer -->
+    <!-- CTA Banner -->
+    <section class="home-cta-banner">
+        <div class="section-inner" data-animate>
+            <h2>Ready to transform your <em>smile</em>?</h2>
+            <a href="contact.html" class="cta-button">
+                Book Your Consultation
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Shared Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo"><img src="assets/images/team-dental-logo.png" alt="Team Dental" class="footer-logo-img" loading="lazy"></div>
-            <ul class="footer-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-            <a href="object_0.glb" download="FME-3D-Model.glb" class="download-model-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7 10 12 15 17 10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-                Download 3D Model
-            </a>
+            <div class="footer-col">
+                <img src="assets/images/teamdental_text_logo_white.png" alt="Team Dental" class="footer-logo-img" loading="lazy">
+                <p class="footer-tagline">Pioneering airway orthodontics across 5 locations.</p>
+            </div>
+            <div class="footer-col">
+                <h5 class="footer-heading">Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="fme.html">FME</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5 class="footer-heading">Locations</h5>
+                <ul class="footer-links">
+                    <li><a href="locations.html">New York City</a></li>
+                    <li><a href="locations.html">Philadelphia</a></li>
+                    <li><a href="locations.html">Swedesboro</a></li>
+                    <li><a href="locations.html">Ponte Vedra Beach</a></li>
+                    <li><a href="locations.html">Vermont</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5 class="footer-heading">Contact</h5>
+                <ul class="footer-links">
+                    <li><a href="tel:8559958703">855-995-8703</a></li>
+                    <li><a href="mailto:NYC@team-dental.com">NYC@team-dental.com</a></li>
+                </ul>
+            </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Team Dental. All rights reserved.</p>
-            <p style="font-size: 0.7rem; color: rgba(138, 141, 144, 0.6);">*With accepted insurance, some restrictions apply. Individual results may vary.</p>
+            <p class="footer-disclaimer">*With accepted insurance, some restrictions apply. Individual results may vary.</p>
         </div>
     </footer>
 
-    <!-- Three.js r170 -->
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
-        }
-    }
-    </script>
-    <script type="module" src="assets/js/main.js"></script>
+    <script src="assets/js/nav.js" defer></script>
 </body>
 </html>
