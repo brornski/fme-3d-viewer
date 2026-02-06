@@ -2224,7 +2224,9 @@ footer {
     object-fit: cover;
 }
 
-#dr-jaffari .doctor-bio-img img {
+#dr-jaffari .doctor-bio-img img,
+#dr-newaz .doctor-bio-img img,
+#dr-kennedy .doctor-bio-img img {
     object-position: center 15%;
 }
 
