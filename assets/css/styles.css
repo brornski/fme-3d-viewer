@@ -142,10 +142,10 @@ nav.scrolled {
 }
 
 .nav-logo-img {
-    height: 90px;
+    height: 243px;
     width: auto;
     display: block;
-    margin: -20px 0;
+    margin: -95px 0;
     transition: opacity 0.3s ease;
 }
 
@@ -342,11 +342,10 @@ footer {
 .footer-col {}
 
 .footer-logo-img {
-    height: 80px;
+    height: 216px;
     width: auto;
     display: block;
-    margin-bottom: 0.5rem;
-    margin-left: -10px;
+    margin: -75px 0 -70px -20px;
 }
 
 .footer-tagline {
@@ -1250,9 +1249,10 @@ footer {
 }
 
 .loader-logo-img {
-    height: 100px;
+    height: 270px;
     width: auto;
     display: block;
+    margin: -80px 0;
 }
 
 .loader {
@@ -2798,7 +2798,7 @@ footer {
     .why-grid { grid-template-columns: 1fr; }
     .recognition-grid { grid-template-columns: 1fr; }
     .cta-button { max-width: 260px; padding: 1rem 2rem; font-size: 0.78rem; }
-    .nav-logo-img { height: 60px; margin: -12px 0; }
+    .nav-logo-img { height: 162px; margin: -58px 0; }
     .timeline-steps { grid-template-columns: 1fr; }
     .candidates-grid { grid-template-columns: 1fr; }
     .values-grid { grid-template-columns: 1fr; }
