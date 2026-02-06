@@ -717,7 +717,7 @@ footer {
 .home-hero-sub {
     font-size: 1.1rem;
     line-height: 1.75;
-    color: var(--titanium);
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: 2.5rem;
     max-width: 600px;
     margin-left: auto;
