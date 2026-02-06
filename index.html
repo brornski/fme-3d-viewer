@@ -743,6 +743,35 @@
             transform: translateY(0);
         }
 
+        /* ========================================
+           PINNED SCROLL-DRIVEN SECTIONS
+           Tall sections with sticky content.
+           JS reveals each [data-reveal] item
+           based on scroll progress through section.
+           ======================================== */
+        .section-pinned {
+            display: block;
+            padding: 0;
+            min-height: auto;
+        }
+
+        .pin-wrap {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+        }
+
+        /* Panel inside pinned section is always structurally visible — JS drives children */
+        .section-pinned .content-panel {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+
         /* Locations grid */
         .locations-mini {
             display: grid;
@@ -917,6 +946,31 @@
             }
 
             .section-hero { justify-content: flex-end; }
+
+            /* Pinned sections on mobile */
+            .section-pinned {
+                display: block;
+                padding: 0;
+                min-height: auto !important;
+            }
+
+            .pin-wrap {
+                align-items: flex-end;
+            }
+
+            .section-pinned .content-panel {
+                max-width: 100%;
+                background: linear-gradient(to bottom,
+                    rgba(13, 13, 13, 0) 0px,
+                    rgba(13, 13, 13, 0.4) 24px,
+                    rgba(13, 13, 13, 0.75) 48px,
+                    rgba(13, 13, 13, 0.92) 72px,
+                    rgba(13, 13, 13, 1) 96px);
+                padding: 5.5rem 7% 2.5rem;
+                padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+                margin: 0;
+                text-align: center;
+            }
 
             /* Content panels — smoother multi-stop gradient */
             .content-panel {
@@ -1330,27 +1384,31 @@
             </div>
         </section>
 
-        <!-- Section 2: Technology - Right side -->
-        <section class="scroll-section">
-            <div class="content-panel from-right" data-animate>
-                <div class="badge">Now Available</div>
-                <h2>FME 6-8-10<br><em>TAD System</em></h2>
-                <p>Featuring Temporary Anchorage Devices for enhanced precision and predictable results. Our proprietary design delivers controlled expansion with maximum comfort.</p>
-                <p style="color: var(--gold); font-size: 0.85rem;">Protraction system coming soon.</p>
+        <!-- Section 2: Technology - Right side (pinned, scroll-driven reveals) -->
+        <section class="scroll-section section-pinned" style="height: 250vh;">
+            <div class="pin-wrap">
+                <div class="content-panel from-right">
+                    <div class="badge" data-reveal>Now Available</div>
+                    <h2 data-reveal>FME 6-8-10<br><em>TAD System</em></h2>
+                    <p data-reveal>Featuring Temporary Anchorage Devices for enhanced precision and predictable results. Our proprietary design delivers controlled expansion with maximum comfort.</p>
+                    <p data-reveal style="color: var(--gold); font-size: 0.85rem;">Protraction system coming soon.</p>
+                </div>
             </div>
         </section>
 
-        <!-- Section 3: Benefits - Left side -->
-        <section class="scroll-section" id="benefits">
-            <div class="content-panel from-left" data-animate>
-                <h2>Transform<br>Your <em>Life</em></h2>
-                <ul class="benefits-list">
-                    <li>Wider, Fuller Smile</li>
-                    <li>Improved Nasal Breathing</li>
-                    <li>Relief from TMJ & Snoring</li>
-                    <li>Non-Surgical Treatment</li>
-                    <li>Custom-Engineered Design</li>
-                </ul>
+        <!-- Section 3: Benefits - Left side (pinned, each bullet reveals on scroll) -->
+        <section class="scroll-section section-pinned" id="benefits" style="height: 350vh;">
+            <div class="pin-wrap">
+                <div class="content-panel from-left">
+                    <h2 data-reveal>Transform<br>Your <em>Life</em></h2>
+                    <ul class="benefits-list">
+                        <li data-reveal>Wider, Fuller Smile</li>
+                        <li data-reveal>Improved Nasal Breathing</li>
+                        <li data-reveal>Relief from TMJ & Snoring</li>
+                        <li data-reveal>Non-Surgical Treatment</li>
+                        <li data-reveal>Custom-Engineered Design</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
@@ -1623,27 +1681,27 @@
         // Content: Hero(left), Benefits(right), Tech(left), Doctors(right), CTA(center)
         // Model sits OPPOSITE side of text for visual balance
         // Model fades out after Technology section - shrinks and drifts left before Doctors
+        // Desktop keyframes — adjusted for pinned section heights (100+250+350+100+100vh)
         const desktopKeyframes = [
-            // Hero: model right, front face showing (text is left)
+            // Hero (0 → 0.11): model right, front face
             { scroll: 0.00, x: 0.5,  y: 0,    zoom: 10.0, rotX: 0, rotY: frontFace,                  rotZ: 0 },
-            { scroll: 0.10, x: 0.6,  y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 0.15, rotZ: 0 },
-            // Transition: spin across to left side
-            { scroll: 0.20, x: 0,    y: 0.08, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1.0,  rotZ: 0 },
-            // TAD System: model left, front face (text is right)
-            { scroll: 0.30, x: -0.6, y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.0,  rotZ: 0 },
-            { scroll: 0.38, x: -0.55,y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.15, rotZ: 0 },
-            // Transition: spin across to right side
-            { scroll: 0.44, x: 0,    y: 0.08, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3.0,  rotZ: 0 },
-            // Benefits: model right, front face (text is left)
-            { scroll: 0.52, x: 0.6,  y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.0,  rotZ: 0 },
-            { scroll: 0.58, x: 0.55, y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.15, rotZ: 0 },
-            // Exit: model shrinks and drifts left (fading out via opacity)
-            { scroll: 0.64, x: -0.3, y: 0,    zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,  rotZ: 0 },
-            // From here model is invisible (faded out)
-            { scroll: 0.72, x: -0.4, y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.0,  rotZ: 0 },
-            { scroll: 0.80, x: -0.4, y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.5,  rotZ: 0 },
-            { scroll: 0.88, x: 0,    y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 7.0,  rotZ: 0 },
-            { scroll: 1.00, x: 0,    y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 8.0,  rotZ: 0 },
+            { scroll: 0.08, x: 0.6,  y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 0.15, rotZ: 0 },
+            // Transition to TAD
+            { scroll: 0.14, x: 0,    y: 0.08, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1.0,  rotZ: 0 },
+            // TAD (0.11 → 0.39): model left, slow spin through section
+            { scroll: 0.20, x: -0.6, y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.0,  rotZ: 0 },
+            { scroll: 0.32, x: -0.55,y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.5,  rotZ: 0 },
+            // Transition to Benefits
+            { scroll: 0.40, x: 0,    y: 0.08, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3.0,  rotZ: 0 },
+            // Benefits (0.39 → 0.78): model right, very slow spin as bullets reveal
+            { scroll: 0.48, x: 0.6,  y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.0,  rotZ: 0 },
+            { scroll: 0.62, x: 0.55, y: 0,    zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.5,  rotZ: 0 },
+            // Exit: model fades before Doctors
+            { scroll: 0.72, x: -0.3, y: 0,    zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,  rotZ: 0 },
+            // Invisible from here
+            { scroll: 0.80, x: -0.4, y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.0,  rotZ: 0 },
+            { scroll: 0.88, x: 0,    y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.5,  rotZ: 0 },
+            { scroll: 1.00, x: 0,    y: 0,    zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 7.0,  rotZ: 0 },
         ];
 
         // Mobile keyframes - model pushed to upper viewport, content scrolls below
@@ -1652,57 +1710,48 @@
         //   - SLOW when model is visible between text sections (lingers on front face)
         //   - Gentle turn through back when text content is covering the model
         //   - easeInOutCubic naturally pauses at keyframe positions
+        // Mobile keyframes — adjusted for pinned section heights
+        // Slow, continuous spin — front face lingers between sections
         const mobileKeyframes = [
-            // ── Hero intro — front face, slow gentle angle ──
+            // Hero (0 → 0.11): front face, gentle angle
             { scroll: 0.00, x: 0, y: 2.2,  zoom: 10.0, rotX: 0, rotY: frontFace,                   rotZ: 0 },
-            { scroll: 0.05, x: 0, y: 2.15, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 0.15,  rotZ: 0 },
-            // Hero text covering — gently turns through side to back
-            { scroll: 0.10, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 0.5,   rotZ: 0 },
-            { scroll: 0.14, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1.0,   rotZ: 0 },
-            // Rotating back toward front for gap
-            { scroll: 0.18, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1.5,   rotZ: 0 },
+            { scroll: 0.06, x: 0, y: 2.15, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 0.15,  rotZ: 0 },
+            { scroll: 0.11, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 0.5,   rotZ: 0 },
 
-            // ── Gap Hero→TAD — front face, slow linger ──
-            { scroll: 0.22, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2.0,   rotZ: 0 },
-            { scroll: 0.26, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2.1,   rotZ: 0 },
-            // TAD text covering — turns through side to back
-            { scroll: 0.30, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2.5,   rotZ: 0 },
-            { scroll: 0.34, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3.0,   rotZ: 0 },
-            // Rotating back toward front for gap
-            { scroll: 0.38, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3.5,   rotZ: 0 },
+            // TAD (0.11 → 0.39): slow spin through pinned section
+            { scroll: 0.16, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1.0,   rotZ: 0 },
+            { scroll: 0.22, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1.5,   rotZ: 0 },
+            { scroll: 0.28, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2.0,   rotZ: 0 },
+            { scroll: 0.35, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 2.5,   rotZ: 0 },
 
-            // ── Gap TAD→Benefits — front face, slow linger ──
-            { scroll: 0.42, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4.0,   rotZ: 0 },
-            { scroll: 0.46, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4.1,   rotZ: 0 },
-            // Benefits text covering — turns through side to back
-            { scroll: 0.50, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4.5,   rotZ: 0 },
-            { scroll: 0.54, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,   rotZ: 0 },
+            // Benefits (0.39 → 0.78): slow spin as bullets appear
+            { scroll: 0.42, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3.0,   rotZ: 0 },
+            { scroll: 0.50, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3.5,   rotZ: 0 },
+            { scroll: 0.58, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4.0,   rotZ: 0 },
+            { scroll: 0.66, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 4.5,   rotZ: 0 },
 
-            // ── Exit — returns to front as it fades out ──
-            { scroll: 0.58, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 5.5,   rotZ: 0 },
-            { scroll: 0.62, x: 0, y: 2.0,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.0,   rotZ: 0 },
-            // Faded out from here
-            { scroll: 0.72, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 6.0,   rotZ: 0 },
-            { scroll: 0.80, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 6.1,   rotZ: 0 },
-            { scroll: 0.90, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 6.5,   rotZ: 0 },
-            { scroll: 1.00, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 8.0,   rotZ: 0 },
+            // Exit — fade out before Doctors
+            { scroll: 0.72, x: 0, y: 2.0,  zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,   rotZ: 0 },
+            { scroll: 0.78, x: 0, y: 2.0,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 5.5,   rotZ: 0 },
+            // Faded out
+            { scroll: 0.85, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 6.0,   rotZ: 0 },
+            { scroll: 1.00, x: 0, y: 2.0,  zoom: 14.0, rotX: 0, rotY: frontFace + Math.PI * 7.0,   rotZ: 0 },
         ];
 
-        // Tablet keyframes - same as desktop but gentler horizontal movement for narrower screens
+        // Tablet keyframes — adjusted for pinned section heights
         const tabletKeyframes = [
             { scroll: 0.00, x: 0.3,   y: 0.2,  zoom: 10.0, rotX: 0, rotY: frontFace,                  rotZ: 0 },
-            { scroll: 0.10, x: 0.4,   y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 0.15, rotZ: 0 },
-            { scroll: 0.20, x: 0,     y: 0.25, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1.0,  rotZ: 0 },
-            { scroll: 0.30, x: -0.4,  y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.0,  rotZ: 0 },
-            { scroll: 0.38, x: -0.35, y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.15, rotZ: 0 },
-            { scroll: 0.44, x: 0,     y: 0.25, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3.0,  rotZ: 0 },
-            { scroll: 0.52, x: 0.4,   y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.0,  rotZ: 0 },
-            { scroll: 0.58, x: 0.35,  y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.15, rotZ: 0 },
-            { scroll: 0.64, x: -0.2,  y: 0.2,  zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,  rotZ: 0 },
-            { scroll: 0.72, x: -0.3,  y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.0,  rotZ: 0 },
-            { scroll: 0.80, x: -0.3,  y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.5,  rotZ: 0 },
-            { scroll: 0.88, x: 0,     y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 7.0,  rotZ: 0 },
-            { scroll: 1.00, x: 0,     y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 8.0,  rotZ: 0 },
+            { scroll: 0.08, x: 0.4,   y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 0.15, rotZ: 0 },
+            { scroll: 0.14, x: 0,     y: 0.25, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 1.0,  rotZ: 0 },
+            { scroll: 0.22, x: -0.4,  y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.0,  rotZ: 0 },
+            { scroll: 0.32, x: -0.35, y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 2.5,  rotZ: 0 },
+            { scroll: 0.40, x: 0,     y: 0.25, zoom: 10.0, rotX: 0, rotY: frontFace + Math.PI * 3.0,  rotZ: 0 },
+            { scroll: 0.48, x: 0.4,   y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.0,  rotZ: 0 },
+            { scroll: 0.62, x: 0.35,  y: 0.2,  zoom: 9.5,  rotX: 0, rotY: frontFace + Math.PI * 4.5,  rotZ: 0 },
+            { scroll: 0.72, x: -0.2,  y: 0.2,  zoom: 12.0, rotX: 0, rotY: frontFace + Math.PI * 5.0,  rotZ: 0 },
+            { scroll: 0.80, x: -0.3,  y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.0,  rotZ: 0 },
+            { scroll: 0.88, x: 0,     y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 6.5,  rotZ: 0 },
+            { scroll: 1.00, x: 0,     y: 0.2,  zoom: 13.0, rotX: 0, rotY: frontFace + Math.PI * 7.0,  rotZ: 0 },
         ];
 
         // Select keyframes based on device
@@ -1834,9 +1883,10 @@
                 // 4. Scroll indicator (1.4s)
                 setTimeout(() => { scrollIndicator.classList.add('intro-ready'); }, 1400);
 
-                // Initial scroll position + panel visibility check
+                // Initial scroll position + panel visibility + reveals
                 updateScrollAnimation();
                 updatePanelsAndParallax();
+                updateScrollReveals();
             },
             (progress) => {
                 if (progress.total > 0) {
@@ -1873,14 +1923,14 @@
             }
         }
 
-        // Scroll-driven panel visibility + parallax
+        // Scroll-driven panel visibility + parallax (non-pinned sections only)
         const doctorsSection = document.getElementById('doctors');
-        let modelHidden = false; // tracks exit state to skip GPU renders
+        let modelHidden = false;
 
         function updatePanelsAndParallax() {
             const viewH = window.innerHeight;
 
-            // Panel visibility — guard classList to avoid redundant style recalc
+            // Panel visibility — only for non-pinned [data-animate] panels
             panels.forEach(panel => {
                 const rect = panel.getBoundingClientRect();
                 const inView = rect.top < viewH * 0.92 && rect.bottom > viewH * 0.08;
@@ -1893,8 +1943,9 @@
                 }
             });
 
-            // Parallax — subtle depth offset, translateZ(0) for GPU compositing
+            // Parallax — skip pinned sections (transform breaks position:sticky)
             sections.forEach(section => {
+                if (section.classList.contains('section-pinned')) return;
                 const rect = section.getBoundingClientRect();
                 const offset = (rect.top + rect.height * 0.5 - viewH * 0.5) / viewH;
                 section.style.transform = `translateY(${offset * -20}px) translateZ(0)`;
@@ -1907,13 +1958,43 @@
                 const hasExit = container.classList.contains('exit');
                 if (shouldExit && !hasExit) {
                     container.classList.add('exit');
-                    // After CSS transition completes, mark model hidden to skip renders
                     setTimeout(() => { modelHidden = true; }, 900);
                 } else if (!shouldExit && hasExit) {
                     container.classList.remove('exit');
                     modelHidden = false;
                 }
             }
+        }
+
+        // Scroll-driven reveals for pinned sections
+        // Each [data-reveal] item fades in from below based on scroll progress through its section
+        const pinnedSections = document.querySelectorAll('.section-pinned');
+        function updateScrollReveals() {
+            const viewH = window.innerHeight;
+
+            pinnedSections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const scrolledInto = -rect.top;
+                const scrollRange = section.offsetHeight - viewH;
+                const progress = Math.max(0, Math.min(1, scrolledInto / scrollRange));
+
+                const items = section.querySelectorAll('[data-reveal]');
+                const count = items.length;
+
+                items.forEach((item, i) => {
+                    // Each item gets an equal slice of the scroll range
+                    // First item starts at 5% scroll, last finishes at 85%
+                    const start = 0.05 + (i / count) * 0.75;
+                    const end = start + 0.12;
+                    const p = Math.max(0, Math.min(1, (progress - start) / (end - start)));
+
+                    // easeOutCubic for smooth deceleration
+                    const eased = 1 - Math.pow(1 - p, 3);
+
+                    item.style.opacity = eased;
+                    item.style.transform = `translateY(${(1 - eased) * 30}px)`;
+                });
+            });
         }
 
         // rAF-throttled scroll handler
@@ -1923,6 +2004,7 @@
                 requestAnimationFrame(() => {
                     updateScrollAnimation();
                     updatePanelsAndParallax();
+                    updateScrollReveals();
                     scrollTicking = false;
                 });
                 scrollTicking = true;
