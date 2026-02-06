@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
 </head>
 <body class="page-locations">
     <nav id="mainNav">
@@ -34,93 +35,189 @@
         <a href="contact.html" class="nav-cta mobile-cta">Book Now</a>
     </div>
 
-    <section class="page-hero">
-        <div class="page-hero-inner" data-animate>
-            <p class="hero-eyebrow">Visit Us</p>
+    <!-- ═══════════════ MAP HERO ═══════════════ -->
+    <section class="loc-map-section">
+        <div class="loc-map-header" data-animate>
+            <p class="hero-eyebrow">Find Your Office</p>
             <h1>Our <em>Locations</em></h1>
-            <p>5 offices across the East Coast. Find yours.</p>
+            <p class="loc-map-sub">5 offices across the East Coast. Click a pin to explore.</p>
+        </div>
+
+        <div class="loc-map-wrapper">
+            <div id="locations-map" class="loc-map"></div>
+
+            <!-- Sidebar location selector -->
+            <div class="loc-map-sidebar">
+                <div class="loc-sidebar-head">
+                    <h3>Offices</h3>
+                    <button id="map-reset" class="loc-sidebar-reset" title="Show all locations">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 12a9 9 0 1 1 9 9"/><path d="M3 21v-9h9"/></svg>
+                    </button>
+                </div>
+
+                <div class="map-loc-item" data-location="nyc">
+                    <div class="map-loc-dot"></div>
+                    <div class="map-loc-info">
+                        <strong>New York City</strong>
+                        <span>212-482-1212</span>
+                    </div>
+                </div>
+                <div class="map-loc-item" data-location="philly">
+                    <div class="map-loc-dot"></div>
+                    <div class="map-loc-info">
+                        <strong>Philadelphia</strong>
+                        <span>215-598-5100</span>
+                    </div>
+                </div>
+                <div class="map-loc-item" data-location="swedesboro">
+                    <div class="map-loc-dot"></div>
+                    <div class="map-loc-info">
+                        <strong>Swedesboro</strong>
+                        <span>856-467-4677</span>
+                    </div>
+                </div>
+                <div class="map-loc-item" data-location="ponte-vedra">
+                    <div class="map-loc-dot"></div>
+                    <div class="map-loc-info">
+                        <strong>Ponte Vedra Beach</strong>
+                        <span>904-273-9115</span>
+                    </div>
+                </div>
+                <div class="map-loc-item" data-location="vermont">
+                    <div class="map-loc-dot"></div>
+                    <div class="map-loc-info">
+                        <strong>Vermont</strong>
+                        <span>802-876-7803</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="locations-list">
+    <!-- ═══════════════ LOCATION DETAIL CARDS ═══════════════ -->
+    <section class="loc-details">
         <div class="section-inner">
-            <div class="location-full-card" data-animate style="--loc-bg: url('assets/images/loc-nyc.png');">
-                <div class="location-full-overlay"></div>
-                <div class="location-full-content">
-                    <h2>New York City</h2>
-                    <p class="location-address">251 E 33rd St, 4th Floor<br>New York, NY 10016</p>
-                    <p class="location-phone"><a href="tel:2124821212">212-482-1212</a></p>
-                    <p class="location-email"><a href="mailto:NYC@team-dental.com">NYC@team-dental.com</a></p>
-                    <div class="location-actions">
-                        <a href="https://maps.google.com/?q=251+E+33rd+St+4th+Floor+New+York+NY+10016" target="_blank" rel="noopener" class="cta-button cta-small">Get Directions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                        <a href="contact.html" class="cta-link">Book at this location &rarr;</a>
-                    </div>
-                </div>
-            </div>
+            <p class="hero-eyebrow" data-animate>Visit Us</p>
+            <h2 data-animate>Office <em>Details</em></h2>
 
-            <div class="location-full-card" data-animate style="--loc-bg: url('assets/images/loc-philly.jpg');">
-                <div class="location-full-overlay"></div>
-                <div class="location-full-content">
-                    <h2>Philadelphia</h2>
-                    <p class="location-address">992 N 2nd St<br>Philadelphia, PA 19123</p>
-                    <p class="location-phone"><a href="tel:2155985100">215-598-5100</a></p>
-                    <p class="location-email"><a href="mailto:Northernliberties@team-dental.com">Northernliberties@team-dental.com</a></p>
-                    <div class="location-actions">
-                        <a href="https://maps.google.com/?q=992+N+2nd+St+Philadelphia+PA+19123" target="_blank" rel="noopener" class="cta-button cta-small">Get Directions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                        <a href="contact.html" class="cta-link">Book at this location &rarr;</a>
-                    </div>
-                </div>
-            </div>
+            <div class="loc-detail-grid">
 
-            <div class="location-full-card" data-animate style="--loc-bg: url('assets/images/loc-swedesboro.jpg');">
-                <div class="location-full-overlay"></div>
-                <div class="location-full-content">
-                    <h2>Swedesboro</h2>
-                    <p class="location-address">300 Lexington Rd Suite 220<br>Swedesboro, NJ 08085</p>
-                    <p class="location-phone"><a href="tel:8564674677">856-467-4677</a></p>
-                    <p class="location-email"><a href="mailto:Swedesboro@team-dental.com">Swedesboro@team-dental.com</a></p>
-                    <div class="location-actions">
-                        <a href="https://maps.google.com/?q=300+Lexington+Rd+Suite+220+Swedesboro+NJ+08085" target="_blank" rel="noopener" class="cta-button cta-small">Get Directions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                        <a href="contact.html" class="cta-link">Book at this location &rarr;</a>
+                <div class="loc-detail-card" data-animate data-location="nyc">
+                    <div class="loc-detail-img">
+                        <img src="assets/images/loc-nyc.png" alt="Team Dental NYC" loading="lazy">
+                    </div>
+                    <div class="loc-detail-body">
+                        <h3>New York City</h3>
+                        <p class="loc-detail-addr">251 E 33rd St, 4th Floor<br>New York, NY 10016</p>
+                        <div class="loc-detail-contact">
+                            <a href="tel:2124821212" class="loc-detail-phone">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                212-482-1212
+                            </a>
+                            <a href="mailto:NYC@team-dental.com" class="loc-detail-email">NYC@team-dental.com</a>
+                        </div>
+                        <div class="loc-detail-actions">
+                            <a href="https://maps.google.com/?q=251+E+33rd+St+4th+Floor+New+York+NY+10016" target="_blank" rel="noopener" class="cta-button cta-small">Get Directions <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            <button class="loc-detail-fly" data-location="nyc">View on Map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="location-full-card" data-animate style="--loc-bg: url('assets/images/loc-ponte-vedra.png');">
-                <div class="location-full-overlay"></div>
-                <div class="location-full-content">
-                    <h2>Ponte Vedra Beach</h2>
-                    <p class="location-address">3109 Sawgrass Village Circle<br>Ponte Vedra Beach, FL</p>
-                    <p class="location-phone"><a href="tel:9042739115">904-273-9115</a></p>
-                    <div class="location-actions">
-                        <a href="https://maps.google.com/?q=3109+Sawgrass+Village+Circle+Ponte+Vedra+Beach+FL" target="_blank" rel="noopener" class="cta-button cta-small">Get Directions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                        <a href="contact.html" class="cta-link">Book at this location &rarr;</a>
+                <div class="loc-detail-card" data-animate data-location="philly">
+                    <div class="loc-detail-img">
+                        <img src="assets/images/loc-philly.jpg" alt="Team Dental Philadelphia" loading="lazy">
+                    </div>
+                    <div class="loc-detail-body">
+                        <h3>Philadelphia</h3>
+                        <p class="loc-detail-addr">992 N 2nd St<br>Philadelphia, PA 19123</p>
+                        <div class="loc-detail-contact">
+                            <a href="tel:2155985100" class="loc-detail-phone">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                215-598-5100
+                            </a>
+                            <a href="mailto:Northernliberties@team-dental.com" class="loc-detail-email">Northernliberties@team-dental.com</a>
+                        </div>
+                        <div class="loc-detail-actions">
+                            <a href="https://maps.google.com/?q=992+N+2nd+St+Philadelphia+PA+19123" target="_blank" rel="noopener" class="cta-button cta-small">Get Directions <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            <button class="loc-detail-fly" data-location="philly">View on Map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="location-full-card" data-animate style="--loc-bg: url('assets/images/loc-vermont.jpg');">
-                <div class="location-full-overlay"></div>
-                <div class="location-full-content">
-                    <h2>Vermont</h2>
-                    <p class="location-address">71 Knight Lane Suite 10<br>Williston, VT 05495</p>
-                    <p class="location-phone"><a href="tel:8028767803">802-876-7803</a></p>
-                    <div class="location-actions">
-                        <a href="https://maps.google.com/?q=71+Knight+Lane+Suite+10+Williston+VT+05495" target="_blank" rel="noopener" class="cta-button cta-small">Get Directions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-                        <a href="contact.html" class="cta-link">Book at this location &rarr;</a>
+                <div class="loc-detail-card" data-animate data-location="swedesboro">
+                    <div class="loc-detail-img">
+                        <img src="assets/images/loc-swedesboro.jpg" alt="Team Dental Swedesboro" loading="lazy">
+                    </div>
+                    <div class="loc-detail-body">
+                        <h3>Swedesboro</h3>
+                        <p class="loc-detail-addr">300 Lexington Rd Suite 220<br>Swedesboro, NJ 08085</p>
+                        <div class="loc-detail-contact">
+                            <a href="tel:8564674677" class="loc-detail-phone">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                856-467-4677
+                            </a>
+                            <a href="mailto:Swedesboro@team-dental.com" class="loc-detail-email">Swedesboro@team-dental.com</a>
+                        </div>
+                        <div class="loc-detail-actions">
+                            <a href="https://maps.google.com/?q=300+Lexington+Rd+Suite+220+Swedesboro+NJ+08085" target="_blank" rel="noopener" class="cta-button cta-small">Get Directions <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            <button class="loc-detail-fly" data-location="swedesboro">View on Map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></button>
+                        </div>
                     </div>
                 </div>
+
+                <div class="loc-detail-card" data-animate data-location="ponte-vedra">
+                    <div class="loc-detail-img">
+                        <img src="assets/images/loc-ponte-vedra.png" alt="Team Dental Ponte Vedra" loading="lazy">
+                    </div>
+                    <div class="loc-detail-body">
+                        <h3>Ponte Vedra Beach</h3>
+                        <p class="loc-detail-addr">3109 Sawgrass Village Circle<br>Ponte Vedra Beach, FL</p>
+                        <div class="loc-detail-contact">
+                            <a href="tel:9042739115" class="loc-detail-phone">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                904-273-9115
+                            </a>
+                        </div>
+                        <div class="loc-detail-actions">
+                            <a href="https://maps.google.com/?q=3109+Sawgrass+Village+Circle+Ponte+Vedra+Beach+FL" target="_blank" rel="noopener" class="cta-button cta-small">Get Directions <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            <button class="loc-detail-fly" data-location="ponte-vedra">View on Map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loc-detail-card" data-animate data-location="vermont">
+                    <div class="loc-detail-img">
+                        <img src="assets/images/loc-vermont.jpg" alt="Team Dental Vermont" loading="lazy">
+                    </div>
+                    <div class="loc-detail-body">
+                        <h3>Vermont</h3>
+                        <p class="loc-detail-addr">71 Knight Lane Suite 10<br>Williston, VT 05495</p>
+                        <div class="loc-detail-contact">
+                            <a href="tel:8028767803" class="loc-detail-phone">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                802-876-7803
+                            </a>
+                        </div>
+                        <div class="loc-detail-actions">
+                            <a href="https://maps.google.com/?q=71+Knight+Lane+Suite+10+Williston+VT+05495" target="_blank" rel="noopener" class="cta-button cta-small">Get Directions <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                            <button class="loc-detail-fly" data-location="vermont">View on Map <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
+    <!-- ═══════════════ CTA ═══════════════ -->
     <section class="home-cta-banner">
         <div class="section-inner" data-animate>
             <h2>Questions? Call <em>855-995-8703</em></h2>
-            <a href="tel:8559958703" class="cta-button">Call Now<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="tel:8559958703" class="cta-button">Call Now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
     </section>
 
+    <!-- ═══════════════ FOOTER ═══════════════ -->
     <footer>
         <div class="footer-content">
             <div class="footer-col">
@@ -145,6 +242,9 @@
             <p class="footer-disclaimer">*With accepted insurance, some restrictions apply. Individual results may vary.</p>
         </div>
     </footer>
+
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
     <script src="assets/js/nav.js" defer></script>
+    <script src="assets/js/locations-map.js"></script>
 </body>
 </html>
