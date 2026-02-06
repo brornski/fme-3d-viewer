@@ -767,35 +767,25 @@
 
         /* Panel inside pinned section — JS drives [data-reveal] items directly */
         .section-pinned .content-panel {
-            opacity: 1;
-            transform: none;
-            transition: none;
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
         }
 
-        /* Override stagger rules — make all children structurally visible,
-           JS controls opacity/transform on individual [data-reveal] elements */
-        .section-pinned .content-panel > * {
-            opacity: 1;
-            transform: none;
-            transition: none;
+        /* Non-[data-reveal] children (e.g. <ul> wrapper): always visible.
+           !important needed to beat .content-panel > * { opacity: 0 } */
+        .section-pinned .content-panel > *:not([data-reveal]) {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
         }
 
-        .section-pinned .benefits-list li {
-            opacity: 1;
-            transform: none;
-            transition: none;
-        }
-
+        /* [data-reveal] items: JS sets inline styles to control opacity/transform.
+           Disable CSS transitions so JS changes apply instantly.
+           Do NOT use !important here — inline styles must win. */
+        .section-pinned .benefits-list li,
         .section-pinned .doctors-inline .doctor-mini {
-            opacity: 1;
-            transform: none;
             transition: none;
-        }
-
-        /* The actual [data-reveal] items start hidden — JS fades them in */
-        .section-pinned [data-reveal] {
-            opacity: 0;
-            transform: translateY(30px);
         }
 
         /* Locations grid */
@@ -1018,6 +1008,13 @@
                 transform: translateY(30px);
                 opacity: 0;
                 margin: 0;
+            }
+
+            /* Pinned panels must stay visible — override from-left/from-right hiding */
+            .section-pinned .content-panel.from-left,
+            .section-pinned .content-panel.from-right {
+                opacity: 1;
+                transform: none;
             }
 
             .content-panel.visible {
@@ -2002,6 +1999,7 @@
                 const rect = section.getBoundingClientRect();
                 const scrolledInto = -rect.top;
                 const scrollRange = section.offsetHeight - viewH;
+                if (scrollRange <= 0) return; // safety: section shorter than viewport
                 const progress = Math.max(0, Math.min(1, scrolledInto / scrollRange));
 
                 const items = section.querySelectorAll('[data-reveal]');
