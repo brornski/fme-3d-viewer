@@ -360,25 +360,26 @@
             align-items: center;
             padding: 0 8%;
             position: relative;
+            will-change: transform;
         }
 
         /* Content panels that slide in */
         .content-panel {
             max-width: 480px;
             opacity: 0;
-            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-            -webkit-transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-                                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.8s cubic-bezier(0.33, 1, 0.68, 1),
+                        transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+            -webkit-transition: opacity 0.8s cubic-bezier(0.33, 1, 0.68, 1),
+                                transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
             will-change: opacity, transform;
         }
 
         .content-panel.from-left {
-            transform: translateX(-60px);
+            transform: translateX(-40px);
         }
 
         .content-panel.from-right {
-            transform: translateX(60px);
+            transform: translateX(40px);
             margin-left: auto;
             text-align: right;
         }
@@ -1850,8 +1851,9 @@
                     scrollIndicator.classList.add('intro-ready');
                 }, 2000);
 
-                // Initial scroll position check
+                // Initial scroll position + panel visibility check
                 updateScrollAnimation();
+                updatePanelsAndParallax();
             },
             (progress) => {
                 if (progress.total > 0) {
@@ -1888,60 +1890,70 @@
             }
         }
 
-        // IntersectionObserver for panel visibility — no layout thrashing
-        // Replaces getBoundingClientRect() calls on every scroll frame
-        const panelObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                } else {
-                    // Only remove if scrolled completely past
-                    const rect = entry.boundingClientRect;
-                    if (rect.top > window.innerHeight || rect.bottom < 0) {
-                        entry.target.classList.remove('visible');
-                    }
+        // Scroll-driven panel visibility + parallax
+        // Replaces IntersectionObserver with scroll-linked approach for smooth progressive reveals
+        const vh = window.innerHeight;
+        const doctorsSection = document.getElementById('doctors');
+
+        function updatePanelsAndParallax() {
+            const viewH = window.innerHeight;
+
+            // Panel visibility — generous thresholds for early reveal
+            panels.forEach(panel => {
+                const rect = panel.getBoundingClientRect();
+                const isVisible = rect.top < viewH * 0.92 && rect.bottom > viewH * 0.08;
+
+                if (isVisible) {
+                    panel.classList.add('visible');
+                } else if (rect.top > viewH || rect.bottom < 0) {
+                    panel.classList.remove('visible');
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -10% 0px'
-        });
-        panels.forEach(panel => panelObserver.observe(panel));
 
-        // Fade out 3D model before doctors section appears
-        const doctorsSection = document.getElementById('doctors');
-        const doctorsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
+            // Parallax — subtle depth offset on each section based on viewport position
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const sectionCenter = rect.top + rect.height * 0.5;
+                const offset = (sectionCenter - viewH * 0.5) / viewH;
+                // Parallax: content drifts 20px opposite to scroll direction, creating depth
+                const parallaxY = offset * -20;
+                section.style.transform = `translateY(${parallaxY}px) translateZ(0)`;
+            });
+
+            // Canvas fade — model exits before doctors section
+            if (container.classList.contains('loaded') && doctorsSection) {
+                const dRect = doctorsSection.getBoundingClientRect();
+                if (dRect.top < viewH * 0.4) {
                     container.classList.add('exit');
                 } else {
                     container.classList.remove('exit');
                 }
-            });
-        }, {
-            threshold: 0,
-            rootMargin: '-40% 0px 0px 0px'
-        });
-        if (doctorsSection) doctorsObserver.observe(doctorsSection);
+            }
+        }
 
-        // rAF-throttled scroll handler — only updateScrollAnimation needs per-frame updates
+        // rAF-throttled scroll handler
         let scrollTicking = false;
         window.addEventListener('scroll', () => {
             if (!scrollTicking) {
                 requestAnimationFrame(() => {
                     updateScrollAnimation();
+                    updatePanelsAndParallax();
                     scrollTicking = false;
                 });
                 scrollTicking = true;
             }
         }, { passive: true });
 
-        // Animation loop — uses rAF timestamp for smooth 120Hz ProMotion support
+        // Animation loop — delta-time lerp for consistent speed across 60/120Hz
+        let lastTimestamp = 0;
         function animate(timestamp) {
             requestAnimationFrame(animate);
 
-            // Smooth interpolation — 0.1 for responsive tracking without jitter
-            const lerpFactor = 0.1;
+            // Delta-time lerp — consistent motion regardless of frame rate
+            const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.05); // cap at 50ms
+            lastTimestamp = timestamp;
+            const lerpSpeed = 8; // Higher = snappier response
+            const lerpFactor = 1 - Math.exp(-lerpSpeed * dt);
 
             currentRotationY += (targetRotationY - currentRotationY) * lerpFactor;
             currentPositionX += (targetPositionX - currentPositionX) * lerpFactor;
