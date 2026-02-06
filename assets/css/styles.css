@@ -186,18 +186,7 @@ nav.scrolled {
     border-radius: 1px;
 }
 
-/* FME link — gold accent dot */
-.nav-link-fme::before {
-    content: '';
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    background: var(--gold);
-    border-radius: 50%;
-    margin-right: 6px;
-    animation: pulse 2s ease infinite;
-    vertical-align: middle;
-}
+/* FME link — no dot */
 
 .nav-cta {
     padding: 0.6rem 1.3rem;
@@ -302,15 +291,7 @@ nav.scrolled {
 }
 
 .mobile-nav-link-fme::before {
-    content: '';
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    background: var(--gold);
-    border-radius: 50%;
-    margin-right: 8px;
-    animation: pulse 2s ease infinite;
-    vertical-align: middle;
+    display: none;
 }
 
 .mobile-cta {
