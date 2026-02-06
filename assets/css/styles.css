@@ -971,12 +971,12 @@ footer {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(13,13,13,0.85) 0%, rgba(13,13,13,0.5) 100%);
+    background: linear-gradient(to top, rgba(13,13,13,0.75) 0%, rgba(13,13,13,0.25) 100%);
     transition: background 0.3s ease;
 }
 
 .location-preview-card:hover::before {
-    background: linear-gradient(to top, rgba(13,13,13,0.7) 0%, rgba(13,13,13,0.3) 100%);
+    background: linear-gradient(to top, rgba(13,13,13,0.6) 0%, rgba(13,13,13,0.1) 100%);
 }
 
 .location-preview-card:hover {
