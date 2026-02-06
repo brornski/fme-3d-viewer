@@ -765,11 +765,37 @@
             padding: 0 8%;
         }
 
-        /* Panel inside pinned section is always structurally visible — JS drives children */
+        /* Panel inside pinned section — JS drives [data-reveal] items directly */
         .section-pinned .content-panel {
             opacity: 1;
             transform: none;
             transition: none;
+        }
+
+        /* Override stagger rules — make all children structurally visible,
+           JS controls opacity/transform on individual [data-reveal] elements */
+        .section-pinned .content-panel > * {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+
+        .section-pinned .benefits-list li {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+
+        .section-pinned .doctors-inline .doctor-mini {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+
+        /* The actual [data-reveal] items start hidden — JS fades them in */
+        .section-pinned [data-reveal] {
+            opacity: 0;
+            transform: translateY(30px);
         }
 
         /* Locations grid */
