@@ -852,8 +852,8 @@ footer {
 }
 
 .treatment-card-img {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     object-fit: contain;
     margin-bottom: 1rem;
 }
