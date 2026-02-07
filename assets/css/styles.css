@@ -635,9 +635,15 @@ footer {
     text-align: center;
     padding: 8rem 5% 4rem;
     position: relative;
-    overflow: clip;
     background: url('../video/hero-poster.jpg') center/cover no-repeat;
     background-color: var(--obsidian);
+}
+
+.hero-video-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
 }
 
 .hero-video {
