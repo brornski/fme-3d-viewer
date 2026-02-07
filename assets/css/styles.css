@@ -3391,6 +3391,32 @@ footer {
 
 
 /* ========================================
+   HALF-WINDOW HEIGHT FIX (Mac split/half-window)
+   ======================================== */
+@media (max-height: 750px) and (min-width: 769px) {
+    .home-hero {
+        align-items: flex-end;
+        padding-bottom: 12vh;
+    }
+
+    .hero-video {
+        top: 60%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@media (max-height: 550px) and (min-width: 769px) {
+    .home-hero {
+        padding-bottom: 8vh;
+    }
+
+    .hero-video {
+        top: 65%;
+    }
+}
+
+
+/* ========================================
    17. REDUCED MOTION
    ======================================== */
 @media (prefers-reduced-motion: reduce) {
