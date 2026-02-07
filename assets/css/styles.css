@@ -3300,27 +3300,28 @@ footer {
         height: 100%;
         object-fit: contain;
         margin-bottom: 0;
-        padding: 1rem;
+        padding: 0.6rem;
         grid-row: 1 / -1;
-        border-radius: 12px 0 0 12px;
-        background: rgba(255,255,255,0.03);
+        border-radius: 0;
+        background: none;
+        max-height: 100px;
     }
     .service-card h4 {
         grid-column: 2;
-        padding: 1rem 1rem 0;
-        margin-bottom: 0.25rem;
-        font-size: 0.95rem;
+        padding: 0.6rem 0.8rem 0;
+        margin-bottom: 0.15rem;
+        font-size: 0.85rem;
     }
     .service-card p {
         grid-column: 2;
-        padding: 0 1rem;
-        font-size: 0.78rem;
-        line-height: 1.5;
+        padding: 0 0.8rem;
+        font-size: 0.72rem;
+        line-height: 1.4;
     }
     .service-card .cta-link {
         grid-column: 2;
-        padding: 0.5rem 1rem 1rem;
-        font-size: 0.78rem;
+        padding: 0.3rem 0.8rem 0.6rem;
+        font-size: 0.72rem;
     }
     /* Cards without images stay stacked */
     .service-card:not(:has(.service-card-img)) {
@@ -3349,19 +3350,19 @@ footer {
         grid-column: 1;
         grid-row: 1;
         text-align: right;
-        padding: 1rem 1rem 0;
+        padding: 0.6rem 0.8rem 0;
     }
     .service-card:nth-child(even) p {
         grid-column: 1;
         grid-row: 2;
         text-align: right;
-        padding: 0 1rem;
+        padding: 0 0.8rem;
     }
     .service-card:nth-child(even) .cta-link {
         grid-column: 1;
         grid-row: 3;
         text-align: right;
-        padding: 0.5rem 1rem 1rem;
+        padding: 0.3rem 0.8rem 0.6rem;
     }
 
     /* Locations map mobile */
