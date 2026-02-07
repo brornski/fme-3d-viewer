@@ -635,7 +635,7 @@ footer {
     text-align: center;
     padding: 8rem 5% 4rem;
     position: relative;
-    overflow: hidden;
+    overflow: clip;
     background: url('../video/hero-poster.jpg') center/cover no-repeat;
     background-color: var(--obsidian);
 }
