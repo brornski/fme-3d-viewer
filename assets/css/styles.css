@@ -2200,7 +2200,7 @@ footer {
     aspect-ratio: 1;
     border-radius: 16px;
     overflow: hidden;
-    background: linear-gradient(135deg, var(--team-blue-dark) 0%, var(--team-blue) 100%);
+    background: linear-gradient(135deg, #C9A962 0%, #E8D5A3 100%);
 }
 
 .doctor-bio-img img {
@@ -2215,6 +2215,13 @@ footer {
     object-position: center 15%;
 }
 
+.doctor-bio-text h2 em {
+    background: linear-gradient(135deg, #C9A962 0%, #E8D5A3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .doctor-bio-text h2 {
     margin-bottom: 1rem;
 }
@@ -2224,6 +2231,10 @@ footer {
     gap: 0.5rem;
     flex-wrap: wrap;
     margin-bottom: 1.5rem;
+}
+
+.doctor-credentials .badge {
+    background: linear-gradient(135deg, #C9A962 0%, #E8D5A3 100%);
 }
 
 .doctor-bio-text p {
