@@ -21,6 +21,8 @@
 }
 
 html {
+    overscroll-behavior: none;
+    -webkit-overscroll-behavior: none;
     scroll-behavior: smooth;
 }
 
@@ -626,21 +628,16 @@ footer {
 /* Home Hero */
 .home-hero {
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 8rem 5% 4rem;
     position: relative;
+    overflow: hidden;
     background: url('../video/hero-poster.jpg') center/cover no-repeat;
     background-color: var(--obsidian);
-}
-
-.hero-video-wrap {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
 }
 
 .hero-video {
@@ -3218,7 +3215,7 @@ footer {
     .scroll-indicator { bottom: max(25px, env(safe-area-inset-bottom)); }
 
     /* Home page mobile */
-    .home-hero { padding: 7rem 7% 3rem; min-height: auto; }
+    .home-hero { padding: 7rem 7% 3rem; min-height: 90vh; }
 
     .home-hero-ctas { flex-direction: column; align-items: center; }
 
