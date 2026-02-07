@@ -672,6 +672,7 @@ footer {
         rgba(13,13,13,0.8) 100%
     );
     z-index: 1;
+    pointer-events: none;
 }
 
 .home-hero-inner {
