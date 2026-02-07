@@ -633,7 +633,7 @@ footer {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: max(8rem, 18vh) 5% 4rem;
+    padding: max(8rem, 22vh) 5% 4rem;
     position: relative;
     overflow: hidden;
     background: url('../video/hero-poster.jpg') center/cover no-repeat;
@@ -683,6 +683,7 @@ footer {
     z-index: 2;
     margin-top: auto;
     margin-bottom: auto;
+    padding-top: env(safe-area-inset-top, 0px);
 }
 
 .home-hero-inner .hero-eyebrow {
