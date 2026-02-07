@@ -21,8 +21,6 @@
 }
 
 html {
-    overscroll-behavior: none;
-    -webkit-overscroll-behavior: none;
     scroll-behavior: smooth;
 }
 
@@ -628,7 +626,6 @@ footer {
 /* Home Hero */
 .home-hero {
     min-height: 100vh;
-    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
