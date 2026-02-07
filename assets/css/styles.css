@@ -3335,6 +3335,34 @@ footer {
         padding-left: 1rem;
         padding-right: 1rem;
     }
+    /* Alternate card sides: even cards flip image to right */
+    .service-card:nth-child(even) {
+        grid-template-columns: 3fr 2fr;
+    }
+    .service-card:nth-child(even) .service-card-img {
+        grid-column: 2;
+        grid-row: 1 / -1;
+        order: 1;
+        border-radius: 0 12px 12px 0;
+    }
+    .service-card:nth-child(even) h4 {
+        grid-column: 1;
+        grid-row: 1;
+        text-align: right;
+        padding: 1rem 1rem 0;
+    }
+    .service-card:nth-child(even) p {
+        grid-column: 1;
+        grid-row: 2;
+        text-align: right;
+        padding: 0 1rem;
+    }
+    .service-card:nth-child(even) .cta-link {
+        grid-column: 1;
+        grid-row: 3;
+        text-align: right;
+        padding: 0.5rem 1rem 1rem;
+    }
 
     /* Locations map mobile */
     .loc-map-wrapper { height: 55vh; min-height: 400px; }
