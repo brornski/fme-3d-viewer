@@ -246,10 +246,12 @@ nav.scrolled {
     z-index: 998;
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .mobile-overlay.open {
     opacity: 1;
+    pointer-events: auto;
 }
 
 /* Mobile menu */
@@ -3060,7 +3062,7 @@ footer {
         align-items: stretch;
     }
 
-    .page-fme .section-hero { justify-content: flex-end; }
+    .page-fme .section-hero { justify-content: center; }
 
     .page-fme .section-pinned {
         display: block;
