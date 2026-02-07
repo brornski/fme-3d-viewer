@@ -858,6 +858,12 @@ footer {
     margin-bottom: 1rem;
 }
 
+.treatment-card-img[src*="cleanings-checkups"] {
+    width: 100px;
+    height: 64px;
+    object-fit: contain;
+}
+
 
 
 .treatment-card h4 {
