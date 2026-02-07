@@ -3233,7 +3233,8 @@ footer {
 
     .home-hero-ctas { flex-direction: column; align-items: center; }
 
-    .home-spotlight-inner { grid-template-columns: 1fr; text-align: center; }
+    .home-spotlight-inner { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+    .home-spotlight-image img { max-width: 280px; max-height: 35vh; object-fit: contain; margin: 0 auto; }
     .home-spotlight-text .hero-eyebrow { justify-content: center; }
     .spotlight-stats { justify-content: center; }
 
