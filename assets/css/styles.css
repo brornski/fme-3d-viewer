@@ -3285,8 +3285,56 @@ footer {
     .flagship-card { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
     .flagship-img img { max-width: 280px; max-height: 35vh; margin: 0 auto; }
     .services-grid { grid-template-columns: 1fr; }
-    .service-card-img { width: 80px; height: 80px; }
-    .service-card { text-align: center; align-items: center; }
+    .service-card {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        grid-template-rows: auto;
+        gap: 0;
+        text-align: left;
+        align-items: center;
+        padding: 0;
+        overflow: hidden;
+    }
+    .service-card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        margin-bottom: 0;
+        padding: 1rem;
+        grid-row: 1 / -1;
+        border-radius: 12px 0 0 12px;
+        background: rgba(255,255,255,0.03);
+    }
+    .service-card h4 {
+        grid-column: 2;
+        padding: 1rem 1rem 0;
+        margin-bottom: 0.25rem;
+        font-size: 0.95rem;
+    }
+    .service-card p {
+        grid-column: 2;
+        padding: 0 1rem;
+        font-size: 0.78rem;
+        line-height: 1.5;
+    }
+    .service-card .cta-link {
+        grid-column: 2;
+        padding: 0.5rem 1rem 1rem;
+        font-size: 0.78rem;
+    }
+    /* Cards without images stay stacked */
+    .service-card:not(:has(.service-card-img)) {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 1.5rem;
+    }
+    .service-card:not(:has(.service-card-img)) h4,
+    .service-card:not(:has(.service-card-img)) p,
+    .service-card:not(:has(.service-card-img)) .cta-link {
+        grid-column: 1;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 
     /* Locations map mobile */
     .loc-map-wrapper { height: 55vh; min-height: 400px; }
