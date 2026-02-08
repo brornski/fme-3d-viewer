@@ -3046,6 +3046,8 @@ footer {
     nav {
         padding: 1rem 1.5rem;
         padding-top: max(1rem, env(safe-area-inset-top));
+        padding-right: max(1.5rem, env(safe-area-inset-right));
+        padding-left: max(1.5rem, env(safe-area-inset-left));
         background: rgba(13,13,13,0.97);
     }
 
