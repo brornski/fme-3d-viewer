@@ -220,11 +220,9 @@ nav.scrolled {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 14px;
+    padding: 10px;
     z-index: 1001;
     -webkit-tap-highlight-color: transparent;
-    min-width: 44px;
-    min-height: 44px;
 }
 
 .hamburger span {
