@@ -3058,6 +3058,11 @@ footer {
         overflow: hidden;
     }
 
+    .nav-logo-img {
+        height: 162px;
+        margin: -58px 0;
+    }
+
     .nav-links { display: none; }
     .hamburger { display: block; flex-shrink: 0; }
     .mobile-menu { display: flex; }
