@@ -3050,12 +3050,11 @@ footer {
         padding-left: max(1.5rem, env(safe-area-inset-left));
         background: rgba(13,13,13,0.97);
         max-width: 100vw;
+        justify-content: center;
     }
 
     .nav-logo {
-        flex-shrink: 1;
-        min-width: 0;
-        overflow: hidden;
+        flex-shrink: 0;
     }
 
     .nav-logo-img {
@@ -3064,7 +3063,13 @@ footer {
     }
 
     .nav-links { display: none; }
-    .hamburger { display: block; flex-shrink: 0; }
+    .hamburger {
+        display: block;
+        position: absolute;
+        right: max(1.5rem, env(safe-area-inset-right));
+        top: 50%;
+        transform: translateY(-50%);
+    }
     .mobile-menu { display: flex; }
     .mobile-overlay { display: block; }
 
